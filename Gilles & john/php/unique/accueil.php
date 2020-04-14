@@ -11,7 +11,6 @@
     <?php include'header.php'?>
 
     <main>
-    modification
     </main>
 
     <?php include'footer.php'?>
