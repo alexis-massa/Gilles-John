@@ -33,9 +33,8 @@ nav{
     padding: 12px 16px;
 }
 
-.nav-elements a:hover {
+.nav-elements a:hover,.dropbtn:hover {
     color: #FF9A2D;
-
 }
 
 .dropbtn {
@@ -65,7 +64,7 @@ nav{
     min-width: 160px;
     z-index: 1;
 }
-  
+ 
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -81,8 +80,50 @@ nav{
     color:#FF9A2D ;
 }
 
+.fa-sort-down{
+    margin: 3px;
+}
+#contact{
+    margin-right: 50px;
+}
+
+.fa-shopping-basket,.fa-search,.fa-user{
+    margin-left: 8px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.fa-user{
+    margin-right: 20px!important;
+}
+
 /* ACTIVE */
 .active{
     color: #FF9A2D!important;
 }
+
+/* BASKET SHOP*/
+#container-shop-basket{
+    display: none;
+    position: absolute;
+    right: 192px;
+    width: 400px;
+    text-align: center;
+}
+
+#container-shop-basket hr{
+background-color: rgba(255, 153, 45, 0.411);
+}
+
+#container-shop-basket h3{
+    font-size: 16px;
+}
+
+#label-basket{
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
 
