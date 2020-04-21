@@ -16,6 +16,8 @@
             <i id="basket_shop" class="fas fa-shopping-basket"></i>
             <i class="fas fa-search"></i>
             <i class="fas fa-user"></i>
+            <img class="hidden hamburger" src="../../icons/hamburger.ico">
+            <img class="hidden hamburger-drop" src="../../icons/hamburger-drop.ico">
         </div>
         
         <div id="container-shop-basket">
