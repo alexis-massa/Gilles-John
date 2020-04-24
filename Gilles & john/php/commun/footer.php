@@ -1,6 +1,4 @@
 <footer>
-    <div id="adresse">
-    </div>
     <table>
         <tbody>
             <tr>
@@ -17,7 +15,7 @@
                         consectetur adipisicing elit, sed
                         do eiusmod tempor incididunt ut. </p>
                 </td>
-                <td>
+                <td rowspan="2">
                     <a href="http://">Contactez-nous</a>
                     <a href="http://">Politique de confidentialité</a>
                     <a href="http://">Termes & conditions</a>
