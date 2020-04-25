@@ -39,3 +39,10 @@ td > a:link {
     font-size: 12px;
     letter-spacing: 0.4px;
 }
+@media (max-width: 600px) {
+
+    #footer-1_table{
+        width: 90%;
+    }
+
+}
