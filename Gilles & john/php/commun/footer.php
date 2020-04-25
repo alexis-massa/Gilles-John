@@ -17,6 +17,7 @@
                             do eiusmod tempor incididunt ut. </p>
                     </td>
                     <td rowspan="2">
+                    <!-- AJOUTER LES LIENS -->
                         <a href="http://">Contactez-nous</a>
                         <a href="http://">Politique de confidentialité</a>
                         <a href="http://">Termes & conditions</a>
