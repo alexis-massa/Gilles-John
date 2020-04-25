@@ -3,11 +3,10 @@ footer {
     font-family: Roboto Light;
 }
 
-table{
+#footer-1_table{
     width: 30%;    
     margin-left:auto;
     margin-right:auto;
-    position: relative;
 }
 td > *{
     display: block;
@@ -23,13 +22,12 @@ td > a:link {
 #footer-2{
     background-color: #004D6A;
     padding: 20px;
-    position: relative;
-    margin-left:auto;
-    margin-right:auto;
 }
 
 #footer-2 > div {
     width: 30%;
+    margin-left:auto;
+    margin-right:auto;
     text-align: center;
 }
 #footer-2 > div > i {

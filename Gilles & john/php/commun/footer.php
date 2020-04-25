@@ -1,6 +1,6 @@
 <footer>
     <section id="footer-1">
-        <table>
+        <table id="footer-1_table">
             <tbody>
                 <tr>
                     <th>
