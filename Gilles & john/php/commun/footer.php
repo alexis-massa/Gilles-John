@@ -35,7 +35,7 @@
     </section>
     <section id="footer-2">
         <div>
-            <i class="fab fa-cc-mastercard w3-large"></i>
+            <i class="fab fa-cc-mastercard"></i>
             <i class="fab fa-cc-paypal"></i>
             <i class="fab fa-cc-visa"></i>
             <i class="far fa-credit-card"></i>
