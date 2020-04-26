@@ -3,3 +3,68 @@
 html{
     font-family: Roboto ,Arial, Helvetica, sans-serif;
 }
+h1{
+    font-family: Roboto Light;
+    font-size: 96px;
+    letter-spacing: -1.5px;
+}
+h2{
+    font-family: Roboto Light;
+    font-size: 60px;
+    letter-spacing: -0.5px;
+}
+h3{
+    font-family: Roboto Regular;
+    font-size: 48px;
+    letter-spacing: 0px;
+}
+h4{
+    font-family: Roboto Regular;
+    font-size: 34px;
+    letter-spacing: 0.25px;
+}
+h5{
+    font-family: Roboto Regular;
+    font-size: 24px;
+    letter-spacing: 0px;
+}
+h6{
+    font-family: Roboto Medium;
+    font-size: 20px;
+    letter-spacing: 0.25px;
+}
+body1{
+    font-family: Roboto Regular;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+}
+body2{
+    font-family: Roboto Regular;
+    font-size: 14px;
+    letter-spacing: 0.25px;
+}
+subtitle1{
+    font-family: Roboto Regular;
+    font-size: 16px;
+    letter-spacing: 0.15px;
+}
+subtitle2{
+    font-family: Roboto Medium;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+}
+button{
+    font-family: Roboto Medium;
+    font-size: 14px;
+    letter-spacing: 1.25px;
+}
+caption{
+    font-family: Roboto Regular;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+}
+overline{
+    font-family: Roboto Medium;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
