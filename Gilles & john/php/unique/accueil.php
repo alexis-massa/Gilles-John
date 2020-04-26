@@ -23,10 +23,10 @@
     <?php include '../commun/header.php' ?>
 
     <main>
-
+        bonjour
     </main>
 
-    <?php include '../commun/footer.php' ?>
+    
     <script src="../../js/header.js"></script>
 </body>
 

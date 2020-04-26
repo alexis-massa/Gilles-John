@@ -9,4 +9,14 @@ $(document).ready(function () {
             $("#basket_shop").css("color", "orange");
         }
     });
+
+    $(".hamburger").click(function () {
+        if ($(".mobile-elements").is(":visible")) {
+            $(".mobile-elements").slideUp(200);
+            $(".mobile-elements").css("color", "black");
+        } else {
+            $(".mobile-elements").slideDown(300);
+            $(".mobile-elements").css("color", "orange");
+        }
+    });
 });
