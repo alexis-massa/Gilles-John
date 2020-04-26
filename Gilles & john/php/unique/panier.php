@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/panier.css">
 </head>
+
 <body>
     <?php include '../commun/header.php' ?>
 
