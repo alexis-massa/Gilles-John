@@ -1,0 +1,48 @@
+footer {
+    color: white;
+    font-family: Roboto Light;
+}
+
+#footer-1_table{
+    width: 30%;    
+    margin-left:auto;
+    margin-right:auto;
+}
+td > *{
+    display: block;
+    width: 300px;
+}
+td > a:link {
+    color: white;
+}
+#footer-1 {
+    background-color: #003144;
+    padding: 20px;
+}
+#footer-2{
+    background-color: #004D6A;
+    padding: 20px;
+}
+
+#footer-2 > div {
+    width: 30%;
+    margin-left:auto;
+    margin-right:auto;
+    text-align: center;
+}
+#footer-2 > div > i {
+    font-size: 50px;
+    color: black;
+}
+
+#footer-copyright {
+    font-size: 12px;
+    letter-spacing: 0.4px;
+}
+@media (max-width: 600px) {
+
+    #footer-1_table{
+        width: 90%;
+    }
+
+}
