@@ -21,7 +21,25 @@
     <?php include '../commun/header.php' ?>
 
     <main>
+        <h1>Formulaire de contact</h1>
 
+            <form name= "Formulaire de contact" action="mailto:">
+                <label for="prenom"></label>
+                <input type="text" id='prenom' name="prenom" placeholder="Prénom">
+                <label for="nom"></label>
+                <input type="text" id='nom' name="nom" placeholder="Nom"><br>
+
+                <label for="email"></label>
+                <input type="text" id="email" name="email" placeholder="Votre email"><br>
+
+                <label for="objet"></label>
+                <input type="text" id="objet" name="objet" placeholder="Objet du message"><br>
+
+                <label for="message"></label>
+                <textarea name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea><br>
+
+                <input type="submit"value="ENVOYER">
+            </form>
     </main>
 
     <?php include '../commun/footer.php' ?>
