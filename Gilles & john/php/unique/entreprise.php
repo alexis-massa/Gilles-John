@@ -21,7 +21,9 @@
     <?php include '../commun/header.php' ?>
 
     <main>
-    <h4>Son histoire</h4>
+    <div id="titre1">
+            <h4>Son histoire</h4>
+        </div>  
         <br>
 
         <p>Créée en 1789, pendant la révolution française, Gilles & John était une entreprise de couture. Avec les besoins évident de protection et le marché en développement de l’équipement de sécurité, Gilles & John a su trouver sa place et faire développer son activité.</p>
@@ -40,7 +42,8 @@
 
         <p>Vente d’équipements de protections, retro réfléchissants (gilets de sécurité, casques de sécurité, bandanas, bracelets, chaussures, ainsi que des modèles old school comme des cocardes).</p>
 
-
+    
+    </main>
     </main>
 
     <?php include '../commun/footer.php' ?>
