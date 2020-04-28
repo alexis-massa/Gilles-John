@@ -20,14 +20,14 @@
     <main>
         <?php
         // Connection à la BDD
-        $db_connection = pg_connect("host=http://127.0.0.1:54547/ dbname=PPEGroupe5 user=postgres");
+        $db_connection = pg_connect("host=localhost dbname=PPE_Groupe5 user=postgres password=postgre");
         // Requète de test : récupère tout le contenu de la table produits
-        $query = 'SELECT * FROM produits ORDER BY id_prod ASC';
+        $query = 'SELECT * FROM produit ORDER BY id_prod ASC';
         // Résultat de la requète dans une variable
         $result = pg_exec($db_connection, $query);
-        //s'il y a un résultat (erreur dans la requete)
+        //S'il y a un résultat (erreur dans la requete)
         if($result){
-            //s'il le résultat fait plus que 0 lignes
+            //Si le résultat fait plus que 0 lignes
             if(pg_num_rows($result)>0){
                 //On parcours le résultat et on met les lignes dans un tableau
                 while($product = pg_fetch_assoc($result)){
