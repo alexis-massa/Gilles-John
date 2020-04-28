@@ -12,7 +12,7 @@ td > *{
     display: block;
     width: 300px;
 }
-td > a:link {
+.white > a:link {
     color: white;
 }
 #footer-1 {
