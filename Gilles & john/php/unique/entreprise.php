@@ -42,8 +42,6 @@
 
         <p>Vente d’équipements de protections, retro réfléchissants (gilets de sécurité, casques de sécurité, bandanas, bracelets, chaussures, ainsi que des modèles old school comme des cocardes).</p>
 
-    
-    </main>
     </main>
 
     <?php include '../commun/footer.php' ?>
