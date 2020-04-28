@@ -45,5 +45,5 @@
         <?php
         if (isset($_POST['id']) AND $_POST['id'] == "" )
         if (isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] == "" )
-        {
+        {}
         ?>
