@@ -11,6 +11,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/cart.css">
+
+    <link rel="stylesheet" href="https://mxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 </head>
 
@@ -18,26 +21,42 @@
     <?php include '../commun/header.php' ?>
 
     <main>
-        <?php
-        // Connection à la BDD
-        $db_connection = pg_connect("host=localhost dbname=PPE_Groupe5 user=postgres password=postgre");
-        // Requète de test : récupère tout le contenu de la table produits
-        $query = 'SELECT * FROM produit ORDER BY id_prod ASC';
-        // Résultat de la requète dans une variable
-        $result = pg_exec($db_connection, $query);
-        //S'il y a un résultat (erreur dans la requete)
-        if($result){
-            //Si le résultat fait plus que 0 lignes
-            if(pg_num_rows($result)>0){
-                //On parcours le résultat et on met les lignes dans un tableau
-                while($product = pg_fetch_assoc($result)){
-                    //On affiche le tableau
-                    print_r($product);
+        <div class="container">
+            <?php
+            // Connection à la BDD (pas toucher)
+            $db_connection = pg_connect("host=localhost dbname=PPE_Groupe5 user=postgres password=postgre");
+
+            // Requète de test : récupère tout le contenu de la table produits
+            $req_produits = 'SELECT * FROM produit ORDER BY id_prod ASC';
+            $req_image = '';
+
+            // Résultat de la requète dans une variable
+            $result = pg_exec($db_connection, $req_produits);
+
+            //S'il y a un résultat (erreur dans la requete)
+            if ($result) {
+                //Si le résultat fait plus que 0 lignes
+                if (pg_num_rows($result) > 0) {
+                    //On parcours le résultat et on met les lignes dans un tableau
+                    while ($product = pg_fetch_assoc($result)) {
+                        //On affiche les produits
+            ?>
+
+                        <div class="col-sm-4 col-md-3">
+                            <form method="POST" action="gilets.php?action=add&id=<?php echo $product['id_prod']; ?>">
+                                <div class="products">
+                                    <img src="<?php $images['chem_img'] ?> ">
+                                </div>
+                            </form>
+                        </div>
+
+            <?php
+                    }
                 }
             }
-        }
 
-        ?>
+            ?>
+        </div>
     </main>
 
     <?php include '../commun/footer.php' ?>
