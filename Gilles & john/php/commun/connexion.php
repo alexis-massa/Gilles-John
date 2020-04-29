@@ -1,7 +1,4 @@
-<html>
-    <head>
-    </head>
-    <body>
+
         <p>
             Pseudo <br><input type="id" name="id" /><br>
             Mot de passe<br> <input type="password" name="mdp" /><br>
@@ -48,7 +45,5 @@
         <?php
         if (isset($_POST['id']) AND $_POST['id'] == "" )
         if (isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] == "" )
-        {
+        {}
         ?>
-    </body>
-</html>
