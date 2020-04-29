@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <p>
+            Pseudo <br><input type="id" name="id" /><br>
+            Mot de passe<br> <input type="password" name="mdp" /><br>
+            Adresse mail <br><input type="mel" name="adresse mail"/><br>
+            <br>
+            <input type="submit" value="Valider" />
+        </p>
+    </form>
+
+    Entrez votre identifiant et votre mot de passe.<br>
+    <p></p>
+    <form action="login.php" method="post">
+        <p>
+            <input type="id" name="id" /><br>
+            <input type="password" name="mdp" />
+            <input type="submit" value="Valider" />
+        </p>
+    </form>
+    <p></p>
+    <p><b><center>Inscrivez vous <a href="inscription.html">ici.
+                </a></center>
+    </body>
+</html>   
+
+<html>
+    <head>
+        <title>Espace Perso</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+        <?php
+        if (isset($_POST['id']) AND $_POST['id'] == "" )
+        if (isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] == "" )
+        {
+        ?>
+
+        <h1>Accès:</h1>
+        <p><strong><a style="color:#BBBBBB" href=""><FONT size="3pt"><b>Espace administrateur</b></FONT></a></strong></p>
+
+        <p>
+            Cette page est reservee aux administrateurs.
+        </p>
+                    
+        <?php
+        }
+        else
+        {
+        echo '<p>Mot de passe incorrect</p>';
+        }
+        ?>
+                    
+        <?php
+        if (isset($_POST['id']) AND $_POST['id'] == "" )
+        if (isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] == "" )
+        {
+        ?>
+    </body>
+</html>

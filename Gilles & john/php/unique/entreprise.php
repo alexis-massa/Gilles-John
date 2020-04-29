@@ -21,26 +21,6 @@
     <?php include '../commun/header.php' ?>
 
     <main>
-    <div id="titre1">
-            <h4>Son histoire</h4>
-        </div>  
-        <br>
-
-        <p>Créée en 1789, pendant la révolution française, Gilles & John était une entreprise de couture. Avec les besoins évident de protection et le marché en développement de l’équipement de sécurité, Gilles & John a su trouver sa place et faire développer son activité.</p>
-        
-        <p>Au fil des siècles, l’entreprise a su se réinventer face aux nouvelles modes et ainsi rester au cœur du marché, en passant par la cocarde pendant la révolution française, mais aussi en produisant les uniformes militaires pour les Poilus.</p>
-        <br>
-
-        <h4>Sa taille</h4>
-        <br>
-        <p>Gilles & John compte aujourd’hui une centaine de salariés, allant de la couturière au chef de services des livraisons.</p>
-        
-        <p>Son chiffre d’affaire sur l’année 2019 est de 500 millions d’euros.</p>
-        <br>
-
-        <h4>Ses activités principales et produits et services proposés</h4>
-
-        <p>Vente d’équipements de protections, retro réfléchissants (gilets de sécurité, casques de sécurité, bandanas, bracelets, chaussures, ainsi que des modèles old school comme des cocardes).</p>
 
     </main>
 

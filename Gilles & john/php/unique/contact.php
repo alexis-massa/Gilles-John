@@ -21,24 +21,7 @@
     <?php include '../commun/header.php' ?>
 
     <main>
-    <h1>Formulaire de contact</h1>
-        <br>
-        <form name= "Formulaire de contact" action="mailto:">
-            <label for="prenom"></label>
-            <input type="text" id='prenom' name="prenom" placeholder="Prénom" pattern="[a-zA-Z]*">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <label for="nom"></label>
-            <input type="text" id='nom' name="nom" placeholder="Nom" pattern="[A-Z]*"><br>
-            <br>
-            <label for="email"></label>
-            <input type="text" id="email" name="email" placeholder="Votre email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$*" size="50"><br>
-            <br>
-            <label for="objet"></label>
-            <input type="text" id="objet" name="objet" placeholder="Objet du message" pattern="[a-zA-Z0-9]" size="50"><br>
-            <br>
-            <label for="message"></label>
-            <textarea name="message" id="message" cols="52" rows="10" placeholder="Message" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$*" size="50"></textarea><br>
-            <br>
-            <input type="submit"value="ENVOYER">
+
     </main>
 
     <?php include '../commun/footer.php' ?>

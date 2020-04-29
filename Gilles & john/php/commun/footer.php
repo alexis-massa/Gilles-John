@@ -16,14 +16,16 @@
                             consectetur adipisicing elit, sed
                             do eiusmod tempor incididunt ut. </p>
                     </td>
-                    <td rowspan="2" class="white">
-                        <a href="../unique/contact.php">Contactez-nous</a>
-                        <a href="../unique/politique_de_confidentialite.php">Politique de confidentialité</a>
-                        <a href="../unique/mentions_legales.php">Mentions légales</a>
+                    <td rowspan="2">
+                    <!-- AJOUTER LES LIENS -->
+                        <a href="http://">Contactez-nous</a>
+                        <a href="http://">Politique de confidentialité</a>
+                        <a href="http://">Termes & conditions</a>
+                        <a href="http://">Mentions légales</a>
                     </td>
                 </tr>
                 <tr>
-                    <td class="white">
+                    <td>
                         <h4>CONTACT</h4>
                         <a id="footer-tel" href="tel:+33456781293">+33456781293</a>
                         <a id="footer-mail" href="mailto:email@email.com">email@email.com</a>

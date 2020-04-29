@@ -35,22 +35,22 @@ h6{
     font-size: 20px;
     letter-spacing: 0.25px;
 }
-body{
+body1{
     font-family: Roboto Regular;
     font-size: 16px;
     letter-spacing: 0.5px;
 }
-.body2{
+body2{
     font-family: Roboto Regular;
     font-size: 14px;
     letter-spacing: 0.25px;
 }
-.subtitle1{
+subtitle1{
     font-family: Roboto Regular;
     font-size: 16px;
     letter-spacing: 0.15px;
 }
-.subtitle2{
+subtitle2{
     font-family: Roboto Medium;
     font-size: 14px;
     letter-spacing: 0.1px;
@@ -65,7 +65,7 @@ caption{
     font-size: 12px;
     letter-spacing: 0.4px;
 }
-.overline{
+overline{
     font-family: Roboto Medium;
     font-size: 12px;
     letter-spacing: 2px;
