@@ -31,48 +31,35 @@
             {
                 // Résultat de la requète dans une variable
                 $result = pg_exec($param_connection, $param_req);
-                //S'il y a un résultat (erreur dans la requete)
+                //S'il y a un résultat (pas d'erreur dans la requete)
                 if ($result) {
                     //Si le résultat fait plus que 0 lignes
                     if (pg_num_rows($result) > 0) {
-                        //On parcours le résultat et on met les lignes dans un tableau
-                        while ($resultat = pg_fetch_assoc($result)) {
-                        }
+                        $resultat = pg_fetch_assoc($result);
+                        return $resultat;
                     }
                 }
-                return $resultat;
             }
 
             // Requète : récupère tout le contenu de la table produits
             $req_produits = 'SELECT * FROM produit ORDER BY id_prod ASC';
 
-            $req_image = 'SELECT chemin_img FROM produit INNER JOIN image on image.id_img = produit.id_img WHERE id_prod = :produit';
-            $image->bindParam(':produit', $produits['id_prod']);
+            // $req_image = 'SELECT chemin_img FROM produit INNER JOIN image on image.id_img = produit.id_img WHERE id_prod = :produit';
+            // $image->bindParam(':produit', $produits['id_prod']);
+            $produit = executer($db_connection, $req_produits);
+            print_r($produit);
 
-            // Résultat de la requète dans une variable
-            $produit = pg_exec($db_connection, $req_produits);
-
-            //S'il y a un résultat (erreur dans la requete)
-            if ($result) {
-                //Si le résultat fait plus que 0 lignes
-                if (pg_num_rows($result) > 0) {
-                    //On parcours le résultat et on met les lignes dans un tableau
-                    while ($product = pg_fetch_assoc($result)) {
-                        //On affiche les produits
             ?>
 
-                        <div class="col-sm-4 col-md-3">
-                            <form method="POST" action="gilets.php?action=add&id=<?php echo $product['id_prod']; ?>">
-                                <div class="products">
-                                    <img src="<?php pg_exec($db_connection, $req_image) ?>">
-                                </div>
-                            </form>
-                        </div>
+            <!-- <div class="col-sm-4 col-md-3">
+                <form method="POST" action="gilets.php?action=add&id=<?php //echo $produit['id_prod']; ?>">
+                    <div class="products">
+                        <img src="<?//php $image['chemin_img'] ?>">
+                    </div>
+                </form>
+            </div> -->
 
             <?php
-                    }
-                }
-            }
 
             ?>
         </div>
