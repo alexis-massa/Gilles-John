@@ -26,15 +26,31 @@
             // Connection à la BDD (pas toucher)
             $db_connection = pg_connect("host=localhost dbname=PPE_Groupe5 user=postgres password=postgre");
 
-            // Requète de test : récupère tout le contenu de la table produits
+            //Fonction execution d'une requête
+            function executer($param_connection, $param_req)
+            {
+                // Résultat de la requète dans une variable
+                $result = pg_exec($param_connection, $param_req);
+                //S'il y a un résultat (erreur dans la requete)
+                if ($result) {
+                    //Si le résultat fait plus que 0 lignes
+                    if (pg_num_rows($result) > 0) {
+                        //On parcours le résultat et on met les lignes dans un tableau
+                        while ($resultat = pg_fetch_assoc($result)) {
+                        }
+                    }
+                }
+                return $resultat;
+            }
+
+            // Requète : récupère tout le contenu de la table produits
             $req_produits = 'SELECT * FROM produit ORDER BY id_prod ASC';
 
-            //TODO : continuer
             $req_image = 'SELECT chemin_img FROM produit INNER JOIN image on image.id_img = produit.id_img WHERE id_prod = :produit';
             $image->bindParam(':produit', $produits['id_prod']);
 
             // Résultat de la requète dans une variable
-            $result = pg_exec($db_connection, $req_produits);
+            $produit = pg_exec($db_connection, $req_produits);
 
             //S'il y a un résultat (erreur dans la requete)
             if ($result) {
