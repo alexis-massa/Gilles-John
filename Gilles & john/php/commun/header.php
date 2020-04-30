@@ -22,6 +22,7 @@
         <img class="hidden hamburger-drop" src="../../icons/hamburger-drop.ico">
         <div class="mobile-elements">
             <a class="active" href="accueil.php">Accueil</a>
+            <hr>
             <div class="dropdown">
                 <button class="dropbtn">Produits <i class="fas fa-sort-down"></i></button>
                 <div class="dropdown-content">
@@ -29,11 +30,16 @@
                     <a id="drop_access" href="accessoires.php">Accessoires</a>
                 </div>
             </div>
+            <hr>
             <a id="entreprise" href="entreprise.php">L'entreprise</a>
+            <hr>
             <a id="contact" href="contact.php">Contact</a>
-            <i id="basket_shop" class="fas fa-shopping-basket"></i>
-            <i class="fas fa-search"></i>
-            <i class="fas fa-user"></i>
+            <hr>
+            <div class="mobile-i">
+                <a href="../unique/panier.php"><i id="basket_shop" class="fas fa-shopping-basket"></i></a>
+                <i class="fas fa-search"></i>
+                <i class="fas fa-user"></i>
+            </div>
         </div>
 
         <div id="container-shop-basket">
