@@ -29,8 +29,9 @@
             // Requète de test : récupère tout le contenu de la table produits
             $req_produits = 'SELECT * FROM produit ORDER BY id_prod ASC';
 
-            $req_image = 'SELECT chemin_img FROM produit INNER JOIN image on image.id_img = produit.id_img WHERE id_prod = ?';
-            $image->bindParam(1, $produits['id_prod']);
+            //TODO : continuer
+            $req_image = 'SELECT chemin_img FROM produit INNER JOIN image on image.id_img = produit.id_img WHERE id_prod = :produit';
+            $image->bindParam(':produit', $produits['id_prod']);
 
             // Résultat de la requète dans une variable
             $result = pg_exec($db_connection, $req_produits);
