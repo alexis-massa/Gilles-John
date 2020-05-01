@@ -27,34 +27,53 @@
             $db_connection = pg_connect("host=localhost dbname=PPE_Groupe5 user=postgres password=postgre");
 
             //Fonction execution d'une requête
-            function executer($param_connection, $param_req)
-            {
-                // Résultat de la requète dans une variable
-                $result = pg_exec($param_connection, $param_req);
-                //S'il y a un résultat (pas d'erreur dans la requete)
-                if ($result) {
-                    //Si le résultat fait plus que 0 lignes
-                    if (pg_num_rows($result) > 0) {
-                        $resultat = pg_fetch_assoc($result);
-                        return $resultat;
-                    }
-                }
-            }
+            // function executer($param_connection, $param_req)
+            // {
+            //     // Résultat de la requète dans une variable
+            //     $result = pg_exec($param_connection, $param_req);
+            //     //S'il y a un résultat (pas d'erreur dans la requete)
+            //     if ($result) {
+            //         //Si le résultat fait plus que 0 lignes
+            //         if (pg_num_rows($result) > 0) {
+            //             while ($resultat = pg_fetch_assoc($result)) {
+            //             }
+            //         }
+            //     }
+            //     print_r($resultat);
+            //     return $resultat;
+            // }
+
 
             // Requète : récupère tout le contenu de la table produits
             $req_produits = 'SELECT * FROM produit ORDER BY id_prod ASC';
 
             // $req_image = 'SELECT chemin_img FROM produit INNER JOIN image on image.id_img = produit.id_img WHERE id_prod = :produit';
             // $image->bindParam(':produit', $produits['id_prod']);
-            $produit = executer($db_connection, $req_produits);
-            print_r($produit);
-
+            // $produit = executer($db_connection, $req_produits);
+            //foreach ($produit as $prod => $valeur) {
+            //    print_r($prod);
+            //}
+            // Résultat de la requète dans une variable
+            $result = pg_exec($db_connection, $req_produits);
+            //S'il y a un résultat (pas d'erreur dans la requete)
+            if ($result) {
+                //Si le résultat fait plus que 0 lignes
+                if (pg_num_rows($result) > 0) {
+                    while ($resultat = pg_fetch_assoc($result)) {
+                        print_r($resultat);
+                        echo '<br>';
+                        echo '<br>';
+                    }
+                }
+            }
             ?>
 
             <!-- <div class="col-sm-4 col-md-3">
-                <form method="POST" action="gilets.php?action=add&id=<?php //echo $produit['id_prod']; ?>">
+                <form method="POST" action="gilets.php?action=add&id=<?php //echo $produit['id_prod']; 
+                                                                        ?>">
                     <div class="products">
-                        <img src="<?//php $image['chemin_img'] ?>">
+                        <img src="<? //php $image['chemin_img'] 
+                                    ?>">
                     </div>
                 </form>
             </div> -->
