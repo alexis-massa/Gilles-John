@@ -1,5 +1,5 @@
-@import "compass/css3";
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300,800);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;300;500;700;900&display=swap');
+
 
 *{
 	box-sizing: border-box;
@@ -7,7 +7,7 @@
 
 form{
 	position: absolute;
-	top: 65%;
+	top: 70%;
 	left: 50%;
 	transform: translate(-50%,-50%);
 	-webkit-transform: translate(-50%,-50%);
@@ -18,6 +18,7 @@ form{
 
 main{
 	margin-top: 20%;
+	font-family: Roboto;
 }
 
 .row {
@@ -40,15 +41,19 @@ main{
 	 width: 215px;
 	 height: 38px;
 	 padding: 10px 0 10px 15px;
-	 font-family: "Open Sans", sans;
 	 font-weight: 400;
-	 color: rgb(100, 100, 100);
-	 background: #efefef;
+	 color: rgb(129, 129, 129);
+	 background: #ffffff;
 	 border: 0;
-	 border-radius: 3px;
+	 border-radius: 0;
 	 outline: 0;
 	 text-indent: 60px;
 	 transition: all 0.3s ease-in-out;
+	 border-bottom: 2px #CF6B00 solid;
+	 -webkit-border-radius: 0;
+	 -moz-border-radius: 0;
+	 -ms-border-radius: 0;
+	 -o-border-radius: 0;
 }
  .clean-slide::-webkit-input-placeholder {
 	 color: #efefef;
@@ -66,7 +71,7 @@ main{
 	 font-size: 11px;
 	 font-weight: 700;
 	 text-transform: uppercase;
-	 color: #CF6B00;
+	 color: #AAAAAA;
 	 text-align: left;
 	 text-shadow: 0 1px 0 rgba(255, 255, 255, .4);
 	 transition: all 0.3s ease-in-out, color 0.3s ease-out;
@@ -120,34 +125,39 @@ form label{
 	width: 450px;
 }
 
+#objet{
+	width: 450px;
+}
+
 #message{
 	width: 450px;
 	height: 400px;
 	position: relative;
 	display: inline-block;
 	padding: 10px 0 10px 15px;
-	font-family: "Open Sans", sans;
+	font-family: Roboto;
 	font-weight: 400;
-	color: rgb(100, 100, 100);
-	background: #efefef;
-	border: 0;
+	color: #AAAAAA;
+	background: #ffffff;
 	border-radius: 3px;
 	outline: 0;
+	border-color:#CF6B00 ;
+	font-size: 11px;
 }
 
 #message::-webkit-input-placeholder {
-	color: #CF6B00;
+	color: #AAAAAA;
 	text-indent: 0;
 	font-weight: 300;
-	font-size: 16px;
-	font-weight: 400;
+	font-size: 11px;
+	font-weight: 700;
 	text-transform: uppercase;
 }
 
 #message:focus{
 	color: #CF6B00;
 	text-indent: 0;
-	background: #efefef;
+	background: #e6e6e6;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
@@ -162,7 +172,7 @@ form label{
 
 footer{
 	position: absolute;
-	top: 110%;
+	top: 120%;
 	width: 100%;
 }
 

@@ -1,0 +1,68 @@
+body,html{
+    height: 100vh;
+    width: 100%;
+}
+
+main{
+    display: grid;
+    grid-template-columns: 350px auto;
+}
+
+h1{
+    text-transform: uppercase;
+    font-size: 32px;
+    text-align: center;
+}
+
+h3{
+    margin: 20px 10px;
+    width: auto;
+    display: inline-block;
+}
+
+hr{
+    background-color: white;
+    width: 80%;
+}
+
+.sidebar svg{
+    margin: 10px auto;
+}
+
+.sidebar span{
+    cursor: pointer;
+}
+
+.sidebar span:hover{
+    color: rgb(167, 167, 167);
+}
+
+.sidebar{
+    background:#00202D;
+    height: 100vh;
+    color: white;
+    grid-column: 1;
+    grid-row: 1;
+    padding: 10px;
+}
+
+.header{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 87px auto;
+}
+
+.head{
+    grid-row: 1;
+    border-bottom: 1px solid gray;
+}
+
+.head svg,.head span{
+    float: right;
+    margin: 1em 10px;
+    font-size: 24px;
+}
+
+.corps{
+    grid-row: 2;
+}

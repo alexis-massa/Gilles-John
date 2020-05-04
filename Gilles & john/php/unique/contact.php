@@ -45,6 +45,12 @@
             </div>
             <div class="row">
                 <span>
+                    <input class="clean-slide" id="objet" type="text" placeholder="Objet du message" />
+                    <label for="objet">Objet</label>
+                </span>
+            </div>
+            <div class="row">
+                <span>
                     <textarea name="message" id="message" cols="61" rows="10" placeholder="Message"></textarea>
                 </span>
             </div>
@@ -53,6 +59,7 @@
     </main>
 
     <?php include '../commun/footer.php' ?>
+    <script src="../../js/header.js"></script>
 </body>
 
 </html>
