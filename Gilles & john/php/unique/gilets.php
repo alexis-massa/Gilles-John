@@ -51,8 +51,6 @@
                     //On parcourt toutes les lignes et on les ajoute dans un tableau associatif
                     while ($produit = pg_fetch_assoc($result)) {
                         //Opérations sur la requête ici :
-                                                
-                        echo $produit['id_img'];
                         $idImg = $produit['id_img'];
                         $req_image->execute();
 
