@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
- <head>
-		<link href="connexion.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
-        <div class="main">
+
         <p>
             Pseudo <br><input type="id" name="id" /><br>
             Mot de passe<br> <input type="password" name="mdp" /><br>
@@ -16,6 +6,7 @@ and open the template in the editor.
             <br>
             <input type="submit" value="Valider" />
         </p>
+    </form>
 
     Entrez votre identifiant et votre mot de passe.<br>
     <br>
@@ -25,10 +16,10 @@ and open the template in the editor.
             <input type="password" name="mdp" />
             <input type="submit" value="Valider" />
         </p>
-    </div>
-
+    </form>
     <br>
-    <p><b>Inscrivez vous <a href="inscription.html">ici.</a>
+    <p><b>Inscrivez vous <a href="inscription.html">ici.
+                </a>
 
         <?php
         if (isset($_POST['id']) AND $_POST['id'] == "" )
@@ -37,6 +28,7 @@ and open the template in the editor.
         ?>
 
         <h1>Accès:</h1>
+        <p><strong><a style="color:#BBBBBB" href=""><FONT size="3pt"><b>Espace administrateur</b></FONT></a></strong></p>
 
         <p>
             Cette page est reservee aux administrateurs.
@@ -53,6 +45,5 @@ and open the template in the editor.
         <?php
         if (isset($_POST['id']) AND $_POST['id'] == "" )
         if (isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] == "" )
-        {
+        {}
         ?>
-    </body>
