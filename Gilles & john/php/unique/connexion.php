@@ -1,29 +1,58 @@
 <!DOCTYPE html>
-<html lang="fr">
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+ <head>
+		<link href="connexion.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="main">
+        <p>
+            Pseudo <br><input type="id" name="id" /><br>
+            Mot de passe<br> <input type="password" name="mdp" /><br>
+            Adresse mail <br><input type="mel" name="adresse mail"/><br>
+            <br>
+            <input type="submit" value="Valider" />
+        </p>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gilles & John - Connexion</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" 
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/63ffd472bc.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../css/header.css">
-    <link rel="stylesheet" href="../../css/footer.css">
-</head>
+    Entrez votre identifiant et votre mot de passe.<br>
+    <br>
+    <form action="login.php" method="post">
+        <p>
+            <input type="id" name="id" /><br>
+            <input type="password" name="mdp" />
+            <input type="submit" value="Valider" />
+        </p>
+    </div>
 
-<body>
+    <br>
+    <p><b>Inscrivez vous <a href="inscription.html">ici.</a>
 
-    <main>
+        <?php
+        if (isset($_POST['id']) AND $_POST['id'] == "" )
+        if (isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] == "" )
+        {
+        ?>
 
-    </main>
+        <h1>Accès:</h1>
 
-</body>
-
-</html>
+        <p>
+            Cette page est reservee aux administrateurs.
+        </p>
+                    
+        <?php
+        }
+        else
+        {
+        echo '<p>Mot de passe incorrect</p>';
+        }
+        ?>
+                    
+        <?php
+        if (isset($_POST['id']) AND $_POST['id'] == "" )
+        if (isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] == "" )
+        {
+        ?>
+    </body>
