@@ -29,12 +29,8 @@
             //Connection par PDO pour les requêtes préparées
             $db_pdo = new PDO("pgsql:host=localhost; dbname=PPE_Groupe5", "postgres", "postgre");
 
-            //$req_produits = 'SELECT * FROM produit INNER JOIN image ON image.id_img = produit.id_img INNER JOIN stock ON stock.id_prod = produit.id_prod ORDER BY produit.id_prod ASC;';
+            
             $req_produits = 'SELECT * FROM produit ORDER BY produit.id_prod ASC;';
-
-
-
-
 
             $req_image = $db_pdo->prepare('SELECT chemin_img FROM image WHERE id_img = ?');
             $idImg = '';
@@ -51,8 +47,6 @@
                     //On parcourt toutes les lignes et on les ajoute dans un tableau associatif
                     while ($produit = pg_fetch_assoc($result)) {
                         //Opérations sur la requête ici :
-                                                
-                        echo $produit['id_img'];
                         $idImg = $produit['id_img'];
                         $req_image->execute();
 
