@@ -28,7 +28,7 @@
         <section class="section1">
             <h1>Nouveaux Gilets Disponibles</h1>
             <p>
-            Gilet jaune fluo, obligatoire à partir du 01/01/2016. Détails réfléchissants. Homologation CE EN471. Livré sans pochette.
+            Gilet jaune fluo, obligatoire depuis le 01/01/2016. Détails réfléchissants. Homologation CE EN471. Livré sans pochette.
             </p>
             <button>Details</button>
         </section>
