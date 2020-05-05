@@ -12,9 +12,9 @@
     <script src="https://kit.fontawesome.com/63ffd472bc.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="../../css/footer.css">
-    <link rel="stylesheet" href="../../css/cart.css">
+    <link rel="stylesheet" href="../../css/magasin.css">
 
-    <link rel="stylesheet" href="https://mxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 </head>
 
@@ -53,6 +53,7 @@
                                     <input type="text" name="quantity" class="form-control" value="1">
                                     <input type="hidden" name="name" class="form-control" value="<?php echo $produit['nom_prod']; ?>">
                                     <input type="hidden" name="price" class="form-control" value="<?php echo $produit['prix_vente']; ?>">
+                                    <input type="submit" name="add_to_cart" class="btn btn-info" value="Ajouter au panier">
                                 </div>
                             </form>
                         </div>
