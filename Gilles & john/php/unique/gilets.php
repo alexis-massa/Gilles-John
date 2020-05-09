@@ -29,15 +29,38 @@
             //Connection par PDO pour les requêtes préparées
             $db_pdo = new PDO("pgsql:host=localhost; dbname=PPE_Groupe5", "postgres", "postgre");
 
-            
-            $req_produits = 'SELECT * FROM produit ORDER BY produit.id_prod ASC;';
+            //Requete produit
+            $req_produits = "SELECT * FROM produit WHERE typ_prod = 'gilet' ORDER BY produit.id_prod ASC;";
 
-            $req_image = $db_pdo->prepare('SELECT chemin_img FROM image WHERE id_img = ?');
+            //Requete images
+            $req_image = $db_pdo->prepare('SELECT chemin_img FROM image WHERE id_img = ?;');
             $idImg = '';
             $req_image->bindParam(1, $idImg);
-            
-            
-            
+
+            $idProd = '';
+
+            //Requete couleur
+            $req_couleur = $db_pdo->prepare('SELECT distinct lib_coul FROM couleur INNER JOIN stock ON couleur.id_coul = stock.id_coul WHERE id_prod = ?;');
+            $req_couleur->bindParam(1, $idProd);
+
+            //Requete taille
+            $req_taille = $db_pdo->prepare('SELECT distinct lib_taille FROM taille INNER JOIN stock ON taille.id_taille = stock.id_taille WHERE id_prod = ?;');
+            $req_taille->bindParam(1, $idProd);
+
+            //Valeur choisies
+            $idCoul = '';
+            $idTaille = '';
+
+
+            //Requete prix de vente (stock)
+            $req_prixVente = $db_pdo->prepare('SELECT prix_vente FROM stock WHERE id_prod = ? AND id_coul = ? AND id_taille = ?;');
+            $req_prixVente->bindParam(1, $produit['id_prod']);
+            $req_prixVente->bindParam(2, $idCoul);
+            $req_prixVente->bindParam(3, $idTaille);
+
+
+
+
             // Résultat de la requète dans une variable
             $result = pg_exec($db_connection, $req_produits);
             //S'il y a un résultat (pas d'erreur dans la requete)
@@ -47,10 +70,25 @@
                     //On parcourt toutes les lignes et on les ajoute dans un tableau associatif
                     while ($produit = pg_fetch_assoc($result)) {
                         //Opérations sur la requête ici :
+
+                        //Exécution de la requête image
                         $idImg = $produit['id_img'];
                         $req_image->execute();
+                        $image = $req_image->fetch();
 
-                       $image = $req_image->fetch();
+                        $idProd = $produit['id_prod'];
+
+                        //Requete couleur
+                        $req_couleur->execute();
+                        $couleur = $req_couleur->fetchAll();
+
+                        print_r($couleur);
+
+
+                        //Requete taille
+                        $req_taille->execute();
+                        $taille = $req_taille->fetchAll();
+
 
             ?>
 
@@ -59,10 +97,42 @@
                                 <div class="products">
                                     <img src="<?php echo $image['chemin_img']; ?>" class="img-responsive">
                                     <h4 class="text-info"><?php echo $produit['nom_prod']; ?></h4>
-                                    <h4><?php echo $produit['prix_vente']; ?></h4>
+
+                                    <?php
+                                    //pour chaque afficher checkbox option lib_coul
+                                    for ($i = 0; $i < count($couleur); $i++) {
+                                        //Span choix de couleur 
+                                        //Achot
+                                    ?>
+                                        <div> couleur</div>
+
+                                    <?php
+                                    }
+
+                                    //pour chaque afficher checkbox option lib_taille
+                                    for ($i = 0; $i < count($taille); $i++) {
+                                        //Span choix de taille 
+                                        //Achot
+                                    ?>
+                                        <div>taille </div>
+                                    <?php
+                                    }
+                                    //Recupere valeur couleur choisie
+                                    $idCoul = '';
+                                    //Recupere valeur taille choisie
+                                    $idTaille = '';
+
+                                    //Exécution de la requête prix
+                                    $req_prixVente->execute();
+                                    $prixVente = $req_prixVente->fetch();
+                                    //Afficher prix
+
+                                    ?>
+                                    <h4><?php //echo $produit['prix_vente']; 
+                                        ?></h4>
                                     <input type="text" name="quantity" class="form-control" value="1">
                                     <input type="hidden" name="name" class="form-control" value="<?php echo $produit['nom_prod']; ?>">
-                                    <input type="hidden" name="price" class="form-control" value="<?php //echo $produit['prix_vente']; ?>">
+                                    <input type="hidden" name="price" class="form-control" value="<?php //echo $prixVente['prix_vente'];?>">
                                     <input type="submit" name="add_to_cart" class="btn btn-info" value="Ajouter au panier">
                                 </div>
                             </form>
