@@ -89,23 +89,23 @@
                         $req_taille->execute();
                         $taille = $req_taille->fetchAll();
 
-
             ?>
 
                         <div class="col-sm-4 col-md-3">
                             <form method="POST" action="gilets.php?action=add&id=<?php echo $produit['id_prod']; ?>">
                                 <div class="products">
-                                    <img src="<?php echo $image['chemin_img']; ?>" class="img-responsive">
+                                    <!-- <img src="<?php echo $image['chemin_img']; ?>" class="img-responsive"> -->
+                                    <div class="product-pic" style="background-image: url(/gilet-standard-jaune.png);"></div>
                                     <h4 class="text-info"><?php echo $produit['nom_prod']; ?></h4>
 
                                     <?php
                                     //pour chaque afficher checkbox option lib_coul
                                     for ($i = 0; $i < count($couleur); $i++) {
-                                        //Span choix de couleur 
-                                        //Achot
+                                        
+                                        
                                     ?>
                                         <div> couleur</div>
-
+                                        <span class="color activeColor <?php echo $couleur ?>" data-pic="url(<?php echo $image ?>)"></span>
                                     <?php
                                     }
 
@@ -115,6 +115,7 @@
                                         //Achot
                                     ?>
                                         <div>taille </div>
+                                        <span class="taille" data-prix="<?php echo $prixVente ?>"><?php echo $taille ?></span>
                                     <?php
                                     }
                                     //Recupere valeur couleur choisie
@@ -147,6 +148,18 @@
     </main>
 
     <?php include '../commun/footer.php' ?>
+    <script>
+        $(".color").click(function(){
+            $(".products span").removeClass("activeColor");
+            $(this).addClass("activeColor");
+            $(".product-pic").css("background-image", $(this).attr("data-pic"));
+        });
+        $(".taille").click(function(){
+            $(".products span").removeClass("activeTaille");
+            $(this).addClass("activeTaille");
+            $(".prix").html($(this).attr("data-prix"));
+        });
+    </script>
 </body>
 
 </html>
