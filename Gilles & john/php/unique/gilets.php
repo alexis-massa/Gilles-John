@@ -54,7 +54,7 @@
 
             //Requete prix de vente (stock)
             $req_prixVente = $db_pdo->prepare('SELECT prix_vente FROM stock WHERE id_prod = ? AND id_coul = ? AND id_taille = ?;');
-            $req_prixVente->bindParam(1, $produit['id_prod']);
+            $req_prixVente->bindParam(1, $idProd);
             $req_prixVente->bindParam(2, $idCoul);
             $req_prixVente->bindParam(3, $idTaille);
 
@@ -76,46 +76,46 @@
                         $req_image->execute();
                         $image = $req_image->fetch();
 
+
                         $idProd = $produit['id_prod'];
 
                         //Requete couleur
                         $req_couleur->execute();
-                        $couleur = $req_couleur->fetchAll();
+                        $couleur = $req_couleur->fetch();
 
-                        print_r($couleur);
 
 
                         //Requete taille
                         $req_taille->execute();
-                        $taille = $req_taille->fetchAll();
-
+                        $taille = $req_taille->fetch();
             ?>
 
                         <div class="col-sm-4 col-md-3">
                             <form method="POST" action="gilets.php?action=add&id=<?php echo $produit['id_prod']; ?>">
                                 <div class="products">
-                                    <!-- <img src="<?php echo $image['chemin_img']; ?>" class="img-responsive"> -->
-                                    <div class="product-pic" style="background-image: url(/gilet-standard-jaune.png);"></div>
+                                    <img src="<?php echo $image['chemin_img']; ?>" class="img-responsive">
+                                    <!-- <div class="product-pic" style="background-image: url(/gilet-standard-jaune.png);"></div> -->
                                     <h4 class="text-info"><?php echo $produit['nom_prod']; ?></h4>
 
                                     <?php
-                                    //pour chaque afficher checkbox option lib_coul
+                                    //pour chaque afficher option lib_coul
                                     for ($i = 0; $i < count($couleur); $i++) {
-                                        
-                                        
+
+
                                     ?>
-                                        <div> couleur</div>
-                                        <span class="color activeColor <?php echo $couleur ?>" data-pic="url(<?php echo $image ?>)"></span>
+                                    <div><?php echo($couleur['lib_coul']) ?></div>
+                                        <!-- <span class="color activeColor <?php //echo $couleur['lib_coul'] ?>" data-pic="url(<?php //echo $image ?>)"></span> -->
                                     <?php
                                     }
-
-                                    //pour chaque afficher checkbox option lib_taille
+                                    
+                                    //pour chaque afficher option lib_taille
                                     for ($i = 0; $i < count($taille); $i++) {
-                                        //Span choix de taille 
-                                        //Achot
-                                    ?>
-                                        <div>taille </div>
-                                        <span class="taille" data-prix="<?php echo $prixVente ?>"><?php echo $taille ?></span>
+                                        
+                                        ?>
+                                        <div><?php echo($taille['lib_taille']) ?></div>
+                                        <!-- <span class="taille" data-prix="<?php //echo $taille['lib_taille'] 
+                                                                                ?>"><?php //echo $taille['lib_taille'] 
+                                                                                                                    ?></span> -->
                                     <?php
                                     }
                                     //Recupere valeur couleur choisie
@@ -131,9 +131,12 @@
                                     ?>
                                     <h4><?php //echo $produit['prix_vente']; 
                                         ?></h4>
+
+
                                     <input type="text" name="quantity" class="form-control" value="1">
                                     <input type="hidden" name="name" class="form-control" value="<?php echo $produit['nom_prod']; ?>">
-                                    <input type="hidden" name="price" class="form-control" value="<?php //echo $prixVente['prix_vente'];?>">
+                                    <input type="hidden" name="price" class="form-control" value="<?php //echo $prixVente['prix_vente']; 
+                                                                                                    ?>">
                                     <input type="submit" name="add_to_cart" class="btn btn-info" value="Ajouter au panier">
                                 </div>
                             </form>
@@ -148,18 +151,7 @@
     </main>
 
     <?php include '../commun/footer.php' ?>
-    <script>
-        $(".color").click(function(){
-            $(".products span").removeClass("activeColor");
-            $(this).addClass("activeColor");
-            $(".product-pic").css("background-image", $(this).attr("data-pic"));
-        });
-        $(".taille").click(function(){
-            $(".products span").removeClass("activeTaille");
-            $(this).addClass("activeTaille");
-            $(".prix").html($(this).attr("data-prix"));
-        });
-    </script>
+    <script src="../../js/magasin.js"></script>
 </body>
 
 </html>
