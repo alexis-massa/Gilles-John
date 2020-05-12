@@ -81,41 +81,32 @@
 
                         //Requete couleur
                         $req_couleur->execute();
-                        $couleur = $req_couleur->fetch();
-
-
 
                         //Requete taille
                         $req_taille->execute();
-                        $taille = $req_taille->fetch();
             ?>
 
                         <div class="col-sm-4 col-md-3">
                             <form method="POST" action="gilets.php?action=add&id=<?php echo $produit['id_prod']; ?>">
                                 <div class="products">
-                                    <img src="<?php echo $image['chemin_img']; ?>" class="img-responsive">
-                                    <!-- <div class="product-pic" style="background-image: url(/gilet-standard-jaune.png);"></div> -->
+                                    <!-- <img src="<?php //echo $image['chemin_img']; ?>" class="img-responsive"> -->
+                                    <div class="product-pic" style="background-image: url(<?php echo $image['chemin_img']; ?>);"></div>
                                     <h4 class="text-info"><?php echo $produit['nom_prod']; ?></h4>
 
                                     <?php
-                                    //pour chaque afficher option lib_coul
-                                    for ($i = 0; $i < count($couleur); $i++) {
-
-
-                                    ?>
-                                    <div><?php echo($couleur['lib_coul']) ?></div>
-                                        <!-- <span class="color activeColor <?php //echo $couleur['lib_coul'] ?>" data-pic="url(<?php //echo $image ?>)"></span> -->
+                                    //Tant qu'il y a des lignes dans la requete, on affiche option lib_coul
+                                    while( $couleur = $req_couleur->fetch()){
+                                        ?>
+                                        <!-- <div><?php //echo ($couleur['lib_coul']); ?></div> -->
+                                        <span class="color activeColor <?php echo $couleur['lib_coul'] ?>"></span>
                                     <?php
                                     }
-                                    
-                                    //pour chaque afficher option lib_taille
-                                    for ($i = 0; $i < count($taille); $i++) {
-                                        
-                                        ?>
-                                        <div><?php echo($taille['lib_taille']) ?></div>
-                                        <!-- <span class="taille" data-prix="<?php //echo $taille['lib_taille'] 
-                                                                                ?>"><?php //echo $taille['lib_taille'] 
-                                                                                                                    ?></span> -->
+
+                                    //Tant qu'il y a des lignes dans la requete, on affiche option lib_taille
+                                    while( $taille = $req_taille->fetch()){
+                                    ?>
+                                        <!-- <div><?php //echo ($taille['lib_taille']); ?></div> -->
+                                        <span class="taille" data-prix="<?php echo $taille['lib_taille']  ?>"><?php echo $taille['lib_taille'] ?></span>
                                     <?php
                                     }
                                     //Recupere valeur couleur choisie
@@ -125,18 +116,20 @@
 
                                     //Exécution de la requête prix
                                     $req_prixVente->execute();
-                                    $prixVente = $req_prixVente->fetch();
                                     //Afficher prix
+                                    while($prixVente = $req_prixVente->fetch()){
 
+                                    
+                                    
                                     ?>
-                                    <h4><?php //echo $produit['prix_vente']; 
-                                        ?></h4>
-
+                                    <h4><?php echo $prixVente['prix_vente']; ?></h4>
+                                    <?php
+                                    }
+                                    ?>
 
                                     <input type="text" name="quantity" class="form-control" value="1">
                                     <input type="hidden" name="name" class="form-control" value="<?php echo $produit['nom_prod']; ?>">
-                                    <input type="hidden" name="price" class="form-control" value="<?php //echo $prixVente['prix_vente']; 
-                                                                                                    ?>">
+                                    <input type="hidden" name="price" class="form-control" value="<?php echo $prixVente['prix_vente']; ?>">
                                     <input type="submit" name="add_to_cart" class="btn btn-info" value="Ajouter au panier">
                                 </div>
                             </form>
