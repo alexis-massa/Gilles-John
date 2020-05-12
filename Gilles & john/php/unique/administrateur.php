@@ -23,6 +23,20 @@
 </head>
 
 <body>
+    <?php 
+        // Connections à la BDD (pas toucher)
+        $db_connection = pg_connect("host=localhost dbname=PPE_Groupe5 user=postgres password=postgre");
+        //Connection par PDO pour les requêtes préparées
+        $db_pdo = new PDO("pgsql:host=localhost; dbname=PPE_Groupe5", "postgres", "postgre");
+
+        //Requete couleur
+        $req_couleur = $db_pdo->query("SELECT lib_coul FROM couleur");
+        $res_couleur = $req_couleur->fetch();
+
+        //Requete taille
+        $req_taille = $db_pdo->query("SELECT lib_taille FROM taille");
+        $res_taille = $req_taille->fetch();
+    ?>
     <main>
         <aside class="sidebar">
             <h1>admin panel</h1>
@@ -33,7 +47,7 @@
                 <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z"
                     clip-rule="evenodd" />
             </svg>
-            <span>Paramétrages des utilisateurs</span> <br>
+            <span id="button-utilisateurs">Paramétrages des utilisateurs</span> <br>
             <svg class="bi bi-tools" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"
@@ -43,7 +57,7 @@
                     d="M15.898 2.223a3.003 3.003 0 01-3.679 3.674L5.878 12.15a3 3 0 11-2.027-2.027l6.252-6.341A3 3 0 0113.778.1l-2.142 2.142L12 4l1.757.364 2.141-2.141zm-13.37 9.019L3.001 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"
                     clip-rule="evenodd" />
             </svg>
-            <span>Paramétrages des outils</span>
+            <span id="button-produits">Paramétrages des produits</span>
         </aside>
 
         <div class="header">
@@ -59,12 +73,51 @@
             </div>
 
             <div class="corps">
+                <section class="Produits">
+                    <div class="ajoutProduits">
+                        <h4>Ajout de produit</h4>
+                        <input type="text" name="nomProd" id="nomProd" placeholder="nom produit">
+                        <span>Type produit: </span>
+                        <select name="typeProd" id="typeProd">
+                            <option value="gilet">gilet</option>
+                            <option value="accessoire">accessoire</option>
+                        </select>
+                        <input type="text" name="idImg" id="idImg" placeholder="Id de l'image">
+                        <input type="text" name="cheminImg" id="cheminImg" placeholder="ex:img/produit/1.png">
+                        <input type="text" name="titreImg" id="titreImg" placeholder="Titre de l'image">
+                        <span>Couleur produit: </span>
+                        <select name="couleurProd" id="couleurProd">
+                            <?php
+                            while( $res_couleur = $req_couleur->fetch()){ ?>
+                            <option value="<?php echo $res_couleur['lib_coul'] ?>"><?php echo $res_couleur['lib_coul'] ?></option>
+                            <?php } ?>
+                        </select> <br>
+                        <span>Taille produit</span>
+                        <select name="tailleProd" id="tailleProd">
+                            <?php
+                            while( $res_taille = $req_taille->fetch()){ ?>
+                            <option value="<?php echo $res_taille['lib_taille'] ?>"><?php echo $res_taille['lib_taille'] ?></option>
+                            <?php } ?>
+                        </select>
+                        <input type="text" name="qte_StockProd" id="qte_StockProd" placeholder="Quantitée disponible">
+                        <input type="text" name="prix_VenteProd" id="prix_VenteProd" placeholder="Prix du produit">
+                        <input type="button" value="Valider produit">
+                        </div>
 
+                        <div class="modifProduits">
+                            <h4>Modification de produit</h4>
+                        </div>
+                    </section>
+
+
+                    <section class="utilisateurs">
+                        Section utilisateurs en TRAVAUX
+                    </section>
             </div>
 
         </div>
     </main>
-
+<script src="../../js/administrateur.js"></script>                                
 </body>
 
 </html>
