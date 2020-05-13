@@ -36,6 +36,10 @@
         //Requete taille
         $req_taille = $db_pdo->query("SELECT lib_taille FROM taille");
         $res_taille = $req_taille->fetch();
+
+        //Requete Image
+        $req_image = $db_pdo->query("SELECT max(id_img) FROM image");
+        $res_lastIdImg = $req_image->fetch();
     ?>
     <main>
         <aside class="sidebar">
@@ -75,49 +79,85 @@
             <div class="corps">
                 <section class="Produits">
                     <div class="ajoutProduits">
-                        <h4>Ajout de produit</h4>
-                        <input type="text" name="nomProd" id="nomProd" placeholder="nom produit">
-                        <span>Type produit: </span>
-                        <select name="typeProd" id="typeProd">
-                            <option value="gilet">gilet</option>
-                            <option value="accessoire">accessoire</option>
-                        </select>
-                        <input type="text" name="idImg" id="idImg" placeholder="Id de l'image">
-                        <input type="text" name="cheminImg" id="cheminImg" placeholder="ex:img/produit/1.png">
-                        <input type="text" name="titreImg" id="titreImg" placeholder="Titre de l'image">
-                        <span>Couleur produit: </span>
-                        <select name="couleurProd" id="couleurProd">
-                            <?php
+                        <form action="" method="POST">
+                            <h4>Ajout de produit</h4>
+                            <input type="text" name="nomProd" id="nomProd" placeholder="nom produit" required>
+                            <input type="text" name="IdProd" id="IdProd" placeholder="ID produit" value="8" required>
+                            <span><?php echo $res_lastIdImg ?></span>
+                            <span>Type produit: </span>
+                            <select name="typeProd" id="typeProd">
+                                <option value="gilet">gilet</option>
+                                <option value="accessoire">accessoire</option>
+                            </select>
+                            <input type="text" name="cheminImg" id="cheminImg" placeholder="ex:img/produit/1.png"
+                                required>
+                            <input type="text" name="titreImg" id="titreImg" placeholder="Titre de l'image" required>
+                            <span>Couleur produit: </span>
+                            <select name="couleurProd" id="couleurProd">
+                                <?php
                             while( $res_couleur = $req_couleur->fetch()){ ?>
-                            <option value="<?php echo $res_couleur['lib_coul'] ?>"><?php echo $res_couleur['lib_coul'] ?></option>
-                            <?php } ?>
-                        </select> <br>
-                        <span>Taille produit</span>
-                        <select name="tailleProd" id="tailleProd">
-                            <?php
+                                <option value="<?php echo $res_couleur['lib_coul'] ?>">
+                                    <?php echo $res_couleur['lib_coul'] ?></option>
+                                <?php } ?>
+                            </select> <br>
+                            <span>Taille produit</span>
+                            <select name="tailleProd" id="tailleProd">
+                                <?php
                             while( $res_taille = $req_taille->fetch()){ ?>
-                            <option value="<?php echo $res_taille['lib_taille'] ?>"><?php echo $res_taille['lib_taille'] ?></option>
-                            <?php } ?>
-                        </select>
-                        <input type="text" name="qte_StockProd" id="qte_StockProd" placeholder="Quantitée disponible">
-                        <input type="text" name="prix_VenteProd" id="prix_VenteProd" placeholder="Prix du produit">
-                        <input type="button" value="Valider produit">
-                        </div>
+                                <option value="<?php echo $res_taille['lib_taille'] ?>">
+                                    <?php echo $res_taille['lib_taille'] ?></option>
+                                <?php } ?>
+                            </select>
+                            <input type="text" name="qte_StockProd" id="qte_StockProd"placeholder="Quantitée disponible" required>
+                            <input type="text" name="prix_VenteProd" id="prix_VenteProd" placeholder="Prix du produit"required>
+                            <input type="submit" value="Valider produit">
+                        </form>
+                    </div>
+                    <?php
+                    if (isset($_POST['nomProd']) AND isset($_POST['qte_StockProd']) AND isset($_POST['prix_VenteProd']) AND
+                        isset($_POST['cheminImg']) AND isset($_POST['titreImg'])) {
 
-                        <div class="modifProduits">
-                            <h4>Modification de produit</h4>
-                        </div>
-                    </section>
+                        //Requete selected couleur
+                        $SelectedCoul = $_POST['couleurProd'];
+                        $req_selectCouleur = $db_pdo->query("SELECT id_coul FROM couleur where lib_coul = '$SelectedCoul'");
+                        $res_selectCouleur = $req_selectCouleur->fetch();
+                        
+                        //Requete selected taille
+                        $SelectedTaille = $_POST['tailleProd'];
+                        $req_selectTaille = $db_pdo->query("SELECT id_taille FROM taille where lib_taille = '$SelectedTaille'");
+                        $res_selectTaille = $req_selectTaille->fetch();
+
+                        //INSERT INTO IMAGE
+                        $req_insertImg = $db_pdo->prepare("INSERT INTO image(chemin_img,titre_img)
+                        VALUES(?,?)");
+                        $req_insertImg->execute(array($_POST['cheminImg'],$_POST['titreImg']));
+
+                        //INSERT INTO PRODUIT
+                        $req_insertProd = $db_pdo->prepare("INSERT INTO produit(nom_prod,typ_prod,id_img)
+                        VALUES(?,?,?)");
+                        $req_insertProd->execute(array($_POST['nomProd'],$_POST['typeProd'],$_POST['IdProd']));
+
+                        //INSERT INTO STOCK
+                        $req_insertStock = $db_pdo->prepare("INSERT INTO stock(id_prod,id_coul,id_taille,qte_stock,prix_vente)
+                        VALUES(?,?,?,?,?)");
+                        $req_insertStock->execute(array($_POST['nomProd'],$_POST['typeProd'],$_POST['IdProd'],$res_selectCouleur['id_coul'],$res_selectTaille['id_taille'],$_POST['qte_StockProd'],$_POST['prix_VenteProd']));
+                    }
+                    ?>
+
+                    <div class="modifProduits">
+                        <h4>Modification de produit</h4>
+                    </div>
+                </section>
 
 
-                    <section class="utilisateurs">
-                        Section utilisateurs en TRAVAUX
-                    </section>
+                <section class="utilisateurs">
+                    Section utilisateurs en TRAVAUX
+                </section>
             </div>
 
         </div>
     </main>
-<script src="../../js/administrateur.js"></script>                                
+    <script src="../../js/administrateur.js"></script>
 </body>
 
 </html>
