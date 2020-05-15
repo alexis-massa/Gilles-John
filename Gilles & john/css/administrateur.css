@@ -70,13 +70,13 @@ hr{
 
 /* CORPS */
 
-.ajoutProduits input{
+.ajoutProduits input,.modifProduits input,.modifProduits button{
     display: block;
     margin: auto;
     margin-bottom: 12px;
 }
 
-.ajoutProduits select{
+.ajoutProduits select,.modifProduits select{
     margin: auto;
     margin-bottom: 12px;
 }
@@ -93,4 +93,16 @@ hr{
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+}
+
+.ajoutProduits,.modifProduits{
+    display: inline-block;
+}
+
+.Produits,.utilisateurs{
+    display: none;
+}
+
+.alert-produits{
+    display: none!important;
 }

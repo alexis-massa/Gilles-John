@@ -74,6 +74,9 @@
             </div>
 
             <div class="corps">
+                <div class="alert alert-success alert-produits" role="alert">
+                    A simple success alert—check it out!
+                 </div> 
                 <section class="Produits">
                     <div class="ajoutProduits">
                         <form action="" method="POST">
@@ -144,13 +147,32 @@
                                 $req_insertStock = $db_pdo->prepare("INSERT INTO stock(id_prod,id_coul,id_taille,qte_stock,prix_vente)
                                 VALUES(?,?,?,?,?)");
                                 $req_insertStock->execute(array($res_lastIdProd[0],$res_selectCouleur['id_coul'],$res_selectTaille['id_taille'],$_POST['qte_StockProd'],$_POST['prix_VenteProd']));
+
                             }
                             ?>
                         </form>
                     </div>
 
                     <div class="modifProduits">
-                        <h4>Modification de produit</h4>
+                        <?php 
+                        //Requete taille
+                        $req_Produit = $db_pdo->query("SELECT * FROM produit");
+                        $res_Produit = $req_Produit->fetch();
+                        ?>
+                        <form action="" method="post">
+                            <h4>Modification de produit</h4>
+
+                            <select name="selectProd" id="selectProd">
+                            <?php
+                                while( $res_Produit = $req_Produit->fetch()){ ?>
+                                    <option value="<?php echo $res_Produit['id_prod']?>">
+                                    <?php echo $res_Produit['id_prod'] . " | " . $res_Produit['nom_prod'] . " | " .$res_Produit['typ_prod'] ?></option>
+                                <?php } ?>
+                            </select>
+                            <input type="text" name="modifProd" id="modifProd" value="">
+
+                            <button type="submit" name="ModifProdSubmit" value="Modifier produit">Modifier produit</button>
+                        </form>
                     </div>
                 </section>
 
@@ -158,9 +180,8 @@
                 <section class="utilisateurs">
                     Section utilisateurs en TRAVAUX
                 </section>
-            </div>
-
-        </div>
+            </div>                      
+        </div> 
     </main>
     <script src="../../js/administrateur.js"></script>
 </body>
