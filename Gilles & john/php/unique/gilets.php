@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/63ffd472bc.js" crossorigin="anonymous"></script>
+    <script src="../../scripts/magasin.js"></script>
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/magasin.css">
@@ -39,7 +40,7 @@
             $req_chemImg->bindParam(1, $idImg);
 
             //Requete titre images
-            $req_titreImg = $db_pdo->prepare('SELECT chemin_img FROM image WHERE id_img = ?;');
+            $req_titreImg = $db_pdo->prepare('SELECT titre_img FROM image WHERE id_img = ?;');
             $req_titreImg->bindParam(1, $idImg);
 
             $idProd = '';
@@ -101,37 +102,32 @@
                                     //Tant qu'il y a des lignes dans la requete, on affiche option lib_coul
                                     while ($couleur = $req_couleur->fetch()) {
                                     ?>
-                                        <label><?php echo $couleur['lib_coul']; ?></label><input type="radio" name="radio_coul" class="radio" value="<?php echo $couleur['id_coul']; ?>">
+                                        <label><?php echo $couleur['lib_coul']; ?></label><input type="radio" name="radio_coul" class="radio" value="<?php echo $couleur['lib_coul']; ?>" checked>
 
                                     <?php
                                     }
                                     //Tant qu'il y a des lignes dans la requete, on affiche option lib_taille
                                     while ($taille = $req_taille->fetch()) {
                                     ?>
-                                        <label><?php echo $taille['lib_taille'] ?></label><input type="radio" name="radio_taille" class="radio" value="<?php echo $taille['id_taille']; ?>">
+                                        <label><?php echo $taille['lib_taille'] ?></label><input type="radio" name="radio_taille" class="radio" value="<?php echo $taille['lib_taille']; ?>" checked>
                                     <?php
                                     }
                                     ?>
                                     <script>
-                                        //checkedRadioCouleur();
+                                        checked();
                                     </script>
                                     <?php
                                     //Recupere valeur couleur choisie
-                                    
-                                    ?>
-                                    <script>
-                                        //checkedRadioTaille();
-                                    </script>
-                                    <?php
-                                    //Recupere valeur taille choisie
-                                    
+                                    $idCoul = '';
+                                    //Recupere valeur taille choisie                                    
+                                    $idTaille = '';
 
                                     //Exécution de la requête prix
                                     $req_prixVente->execute();
                                     //Afficher prix
                                     while ($prixVente = $req_prixVente->fetch()) {
                                     ?>
-                                        <h4><?php echo $prixVente['prix_vente']; ?></h4>
+                                        <h4 id="zonePrix"><?php echo $prixVente['prix_vente']; ?></h4>
                                     <?php
                                     }
                                     ?>
@@ -153,7 +149,7 @@
     </main>
 
     <?php include '../commun/footer.php' ?>
-    <script src="../../scripts/magasin.js"></script>    
+
     <script src="../../scripts/header.js"></script>
 </body>
 
