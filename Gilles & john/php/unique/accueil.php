@@ -39,7 +39,7 @@
     </main>
 
     <?php include '../commun/footer.php' ?>
-    <script src="../../js/header.js"></script>
+    <script src="../../scripts/header.js"></script>
 </body>
 
 </html>
