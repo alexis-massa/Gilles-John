@@ -10,21 +10,21 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])) {
+        if (isset($_REQUEST['login_uti'], $_REQUEST['email_uti'], $_REQUEST['mdp_uti'])) {
 
-            $username = stripslashes($_REQUEST['username']);
-            $username = mysqli_real_escape_string($conn, $username);
+            $username = stripslashes($_REQUEST['login_uti']);
+            $username = pg_escape_string($conn, $username);
 
-            $email = stripslashes($_REQUEST['email']);
-            $email = mysqli_real_escape_string($conn, $email);
+            $email = stripslashes($_REQUEST['email_uti']);
+            $email = pg_escape_string($conn, $email);
 
-            $password = stripslashes($_REQUEST['password']);
-            $password = mysqli_real_escape_string($conn, $password);
+            $password = stripslashes($_REQUEST['mdp_uti']);
+            $password = pg_escape_string($conn, $password);
 
-            $query = "INSERT into `users` (username, email, password)
+            $query = "INSERT into `Utilisateurs` (login_uti, email_uti, mdp_uti)
               VALUES ('$username', '$email', '" . hash('sha256', $password) . "')";
 
-            $res = mysqli_query($conn, $query);
+            $res = $req_utilisateurs($conn, $query);
             if ($res) {
                 echo "<div class='sucess'>
              <h3>Vous êtes inscrit avec succès.</h3>
@@ -49,22 +49,24 @@ and open the template in the editor.
         define('DB_PASSWORD', '');
         define('DB_NAME', 'registration');
 
-        $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        $db_connection = pg_connect("host=localhost dbname=PPE_Groupe5 user=postgres password=postgre");
+        
+            $db_pdo = new PDO("pgsql:host=localhost; dbname=PPE_Groupe5", "postgres", "postgre");
 
         if ($conn === false) {
-            die("ERREUR : Impossible de se connecter. " . mysqli_connect_error());
+            die("ERREUR : Impossible de se connecter. " . pg_last_error());
         }
         session_start();
-        if (isset($_POST['username'])) {
-            $username = stripslashes($_REQUEST['username']);
-            $username = mysqli_real_escape_string($conn, $username);
-            $password = stripslashes($_REQUEST['password']);
-            $password = mysqli_real_escape_string($conn, $password);
-            $query = "SELECT * FROM `users` WHERE username='$username' and password='" . hash('sha256', $password) . "'";
-            $result = mysqli_query($conn, $query) or die(mysql_error());
-            $rows = mysqli_num_rows($result);
+        if (isset($_POST['login_uti'])) {
+            $username = stripslashes($_REQUEST['login_uti']);
+            $username = pg_escape_string ($conn, $username);
+            $password = stripslashes($_REQUEST['mdp_uti']);
+            $password = pg_escape_string ($conn, $password);
+            $req_utilisateurs = "SELECT * FROM `users` WHERE username='$username' and password='" . hash('sha256', $password) . "'";
+            $result = $req_utilisateurs($conn, $query) or die(pg_last_error());
+            $rows = pg_num_rows($result);
             if ($rows == 1) {
-                $_SESSION['username'] = $username;
+                $_SESSION['login_uti'] = $username;
                 header("Location: index.php");
             } else {
                 $message = "Le nom d'utilisateur ou le mot de passe est incorrect.";
@@ -78,11 +80,11 @@ and open the template in the editor.
             <input type="password" class="box-input" name="password" placeholder="Mot de passe">
             <input type="submit" value="Connexion " name="submit" class="box-button">
             <p class="box-register">Vous êtes nouveau ici? <a href="register.php">S'inscrire</a></p>
+        </form>
             <?php if (!empty($message)) { ?>
                 <p class="errorMessage"><?php echo $message; ?></p>
-                ?>
                 <div class="sucess">
-                    <h1>Bienvenue <?php echo $_SESSION['username']; ?>!</h1>
+                    <h1>Bienvenue <?php echo $_SESSION['login_uti']; ?>!</h1>
                 <p>C'est votre tableau de bord.</p>
                 <a href="logout.php">Déconnexion</a>
             </div>
