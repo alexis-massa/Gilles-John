@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/administrateur.css">
+    <script src="../../scripts/administrateur.js"></script>
 </head>
 
 <body>
@@ -155,11 +156,12 @@
 
                     <div class="modifProduits">
                         <?php 
-                        //Requete taille
+                        //Requete produit
                         $req_Produit = $db_pdo->query("SELECT * FROM produit");
                         $res_Produit = $req_Produit->fetch();
+                        $selectedProd = '';
                         ?>
-                        <form action="" method="post">
+                        <form action="" method="post">                           
                             <h4>Modification de produit</h4>
 
                             <select name="selectProd" id="selectProd">
@@ -169,9 +171,16 @@
                                     <?php echo $res_Produit['id_prod'] . " | " . $res_Produit['nom_prod'] . " | " .$res_Produit['typ_prod'] ?></option>
                                 <?php } ?>
                             </select>
-                            <input type="text" name="modifProd" id="modifProd" value="">
+                            <input type="text" value="1" name="enterProdId" id="enterProdId" placeholder="Entrez l'Id du prod à modifier">
+                            <?php
+                                $str = pg_escape_string("1");
+                                $result = pg_query($db_pdo, "SELECT * FROM produit WHERE id_prod = '{$str}'");
+                            ?>
+                            <input type="text" name="modifProd" id="modifProd" value="<?php echo $result['nom_prod'] ?>">
 
                             <button type="submit" name="ModifProdSubmit" value="Modifier produit">Modifier produit</button>
+
+
                         </form>
                     </div>
                 </section>
@@ -183,7 +192,6 @@
             </div>                      
         </div> 
     </main>
-    <script src="../../scripts/administrateur.js"></script>
 </body>
 
 </html>
