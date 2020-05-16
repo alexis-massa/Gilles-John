@@ -4,55 +4,87 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
- <head>
-		<link href="connexion.css" rel="stylesheet" type="text/css"/>
+<html>
+    <head>
+        <link rel="stylesheet" href="connexion.css" />
     </head>
     <body>
-        <div class="main">
-        <p>
-            Pseudo <br><input type="id" name="id" /><br>
-            Mot de passe<br> <input type="password" name="mdp" /><br>
-            Adresse mail <br><input type="mel" name="adresse mail"/><br>
-            <br>
-            <input type="submit" value="Valider" />
-        </p>
-
-    Entrez votre identifiant et votre mot de passe.<br>
-    <br>
-    <form action="login.php" method="post">
-        <p>
-            <input type="id" name="id" /><br>
-            <input type="password" name="mdp" />
-            <input type="submit" value="Valider" />
-        </p>
-    </div>
-
-    <br>
-    <p><b>Inscrivez vous <a href="inscription.html">ici.</a>
-
         <?php
-        if (isset($_POST['id']) AND $_POST['id'] == "" )
-        if (isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] == "" )
-        {
-        ?>
+        if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])) {
 
-        <h1>Accès:</h1>
+            $username = stripslashes($_REQUEST['username']);
+            $username = mysqli_real_escape_string($conn, $username);
 
-        <p>
-            Cette page est reservee aux administrateurs.
-        </p>
-                    
+            $email = stripslashes($_REQUEST['email']);
+            $email = mysqli_real_escape_string($conn, $email);
+
+            $password = stripslashes($_REQUEST['password']);
+            $password = mysqli_real_escape_string($conn, $password);
+
+            $query = "INSERT into `users` (username, email, password)
+              VALUES ('$username', '$email', '" . hash('sha256', $password) . "')";
+
+            $res = mysqli_query($conn, $query);
+            if ($res) {
+                echo "<div class='sucess'>
+             <h3>Vous êtes inscrit avec succès.</h3>
+             <p>Cliquez ici pour vous <a href='login.php'>connecter</a></p>
+       </div>";
+            }
+        } else {
+            ?>
+            <form class="box" action="" method="post">
+                <h1 class="box-logo box-title"></h1>
+                <h1 class="box-title">S'inscrire</h1>
+                <input type="text" class="box-input" name="username" placeholder="Nom d'utilisateur" required />
+                <input type="text" class="box-input" name="email" placeholder="Email" required />
+                <input type="password" class="box-input" name="password" placeholder="Mot de passe" required />
+                <input type="submit" name="submit" value="S'inscrire" class="box-button" />
+                <p class="box-register">Déjà inscrit? <a href="login.php">Connectez-vous ici</a></p>
+            </form>
+        <?php } ?>
         <?php
+        define('DB_SERVER', 'localhost');
+        define('DB_USERNAME', 'root');
+        define('DB_PASSWORD', '');
+        define('DB_NAME', 'registration');
+
+        $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+        if ($conn === false) {
+            die("ERREUR : Impossible de se connecter. " . mysqli_connect_error());
         }
-        else
-        {
-        echo '<p>Mot de passe incorrect</p>';
+        session_start();
+        if (isset($_POST['username'])) {
+            $username = stripslashes($_REQUEST['username']);
+            $username = mysqli_real_escape_string($conn, $username);
+            $password = stripslashes($_REQUEST['password']);
+            $password = mysqli_real_escape_string($conn, $password);
+            $query = "SELECT * FROM `users` WHERE username='$username' and password='" . hash('sha256', $password) . "'";
+            $result = mysqli_query($conn, $query) or die(mysql_error());
+            $rows = mysqli_num_rows($result);
+            if ($rows == 1) {
+                $_SESSION['username'] = $username;
+                header("Location: index.php");
+            } else {
+                $message = "Le nom d'utilisateur ou le mot de passe est incorrect.";
+            }
         }
         ?>
-                    
-        <?php
-        if (isset($_POST['id']) AND $_POST['id'] == "" )
-        if (isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] == "" )
-        {}
-        ?>
+        <form class="box" action="" method="post" name="login">
+            <h1 class="box-logo box-title"></h1>
+            <h1 class="box-title">Connexion</h1>
+            <input type="text" class="box-input" name="username" placeholder="Nom d'utilisateur">
+            <input type="password" class="box-input" name="password" placeholder="Mot de passe">
+            <input type="submit" value="Connexion " name="submit" class="box-button">
+            <p class="box-register">Vous êtes nouveau ici? <a href="register.php">S'inscrire</a></p>
+            <?php if (!empty($message)) { ?>
+                <p class="errorMessage"><?php echo $message; ?></p>
+                ?>
+                <div class="sucess">
+                    <h1>Bienvenue <?php echo $_SESSION['username']; ?>!</h1>
+                <p>C'est votre tableau de bord.</p>
+                <a href="logout.php">Déconnexion</a>
+            </div>
     </body>
+</html>
