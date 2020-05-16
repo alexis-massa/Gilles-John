@@ -183,7 +183,7 @@
             </div>                      
         </div> 
     </main>
-    <script src="../../js/administrateur.js"></script>
+    <script src="../../scripts/administrateur.js"></script>
 </body>
 
 </html>

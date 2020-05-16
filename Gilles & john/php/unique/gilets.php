@@ -101,20 +101,30 @@
                                     //Tant qu'il y a des lignes dans la requete, on affiche option lib_coul
                                     while ($couleur = $req_couleur->fetch()) {
                                     ?>
-                                        <label><?php echo $couleur['lib_coul']; ?></label><input type="radio" name="radio_coul" class="radio">
+                                        <label><?php echo $couleur['lib_coul']; ?></label><input type="radio" name="radio_coul" class="radio" value="<?php echo $couleur['id_coul']; ?>">
 
                                     <?php
                                     }
                                     //Tant qu'il y a des lignes dans la requete, on affiche option lib_taille
                                     while ($taille = $req_taille->fetch()) {
                                     ?>
-                                        <label><?php echo $taille['lib_taille'] ?></label><input type="radio" name="radio_taille" class="radio">
+                                        <label><?php echo $taille['lib_taille'] ?></label><input type="radio" name="radio_taille" class="radio" value="<?php echo $taille['id_taille']; ?>">
                                     <?php
                                     }
+                                    ?>
+                                    <script>
+                                        //checkedRadioCouleur();
+                                    </script>
+                                    <?php
                                     //Recupere valeur couleur choisie
-                                    $idCoul = '';
+                                    
+                                    ?>
+                                    <script>
+                                        //checkedRadioTaille();
+                                    </script>
+                                    <?php
                                     //Recupere valeur taille choisie
-                                    $idTaille = '';
+                                    
 
                                     //Exécution de la requête prix
                                     $req_prixVente->execute();
@@ -143,8 +153,8 @@
     </main>
 
     <?php include '../commun/footer.php' ?>
-    <script src="../../js/magasin.js"></script>
-    <script src="../../js/header.js"></script>
+    <script src="../../scripts/magasin.js"></script>    
+    <script src="../../scripts/header.js"></script>
 </body>
 
 </html>
