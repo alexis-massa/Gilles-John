@@ -117,25 +117,25 @@
                         $req_taille->execute();
             ?>
 
-                        <div class="col-sm-4 col-md-3 ">
+                        <div class="d-inline-flex p-2 justify-content-around ">
                             <form method="POST" action="panier.php?action=add&id=<?php echo $produit['id_prod']; ?>">
-                                <div class="products">
+                                <div class="products shadow p-3 mb-5 bg-white rounded">
                                     <img src="<?php echo $chemImage['chemin_img']; ?>" alt="<?php echo $titreImage['titre_img'] ?>" class="img-responsive">
                                     <h4 class="text-info"><?php echo $produit['nom_prod']; ?></h4>
                                     <?php
                                     //Tant qu'il y a des lignes dans la requete, on affiche option lib_coul
                                     while ($couleur = $req_couleur->fetch()) {
                                     ?>
-                                        <label><?php echo $couleur['lib_coul']; ?></label><input type="radio" name="radio_coul" class="radio" value="<?php echo $couleur['lib_coul']; ?>" checked>
+                                       <div class="radioContainer d-flex justify-content-between"><label class="labelSpacing"><?php echo $couleur['lib_coul']; ?></label><input type="radio" name="radio_coul" class="radio" value="<?php echo $couleur['lib_coul']; ?>" checked></div> 
 
                                     <?php
                                         //On simule des valeurs pour la req_prixVente
                                         $libCoul = $couleur['lib_coul'];
-                                    }
+                                    } ?> <br> <?php
                                     //Tant qu'il y a des lignes dans la requete, on affiche option lib_taille
                                     while ($taille = $req_taille->fetch()) {
                                     ?>
-                                        <label><?php echo $taille['lib_taille'] ?></label><input type="radio" name="radio_taille" class="radio" value="<?php echo $taille['lib_taille']; ?>" checked>
+                                        <label class="labelSpacing"><?php echo $taille['lib_taille'] ?></label><input type="radio" name="radio_taille" class="radio" value="<?php echo $taille['lib_taille']; ?>" checked>
                                     <?php
                                         //On simule des valeurs pour la req_prixVente
                                         $libTaille = $taille['lib_taille'];
@@ -152,19 +152,10 @@
 
                                     // echo $libCoul;
                                     // echo $libTaille;
-
-
-                                    //Exécution de la requête prix
-                                    $req_prixVente->execute();
-                                    while ($prixVente = $req_prixVente->fetch()) {
-                                        //Afficher prix
-                                    ?>
-                                        <h4><?php echo $prixVente['prix_vente']; ?>€</h4>
-                                    <?php
-                                    }
                                     ?>
 
-                                    <label>Quantité :</label><input type="text" name="quantity" class="form-control" value="1">
+
+                                    <label id=quantité>Quantité :</label><input type="text" name="quantity" class="form-control" value="1">
                                     <input type="hidden" name="name" class="form-control" value="<?php echo $produit['nom_prod']; ?>">
                                     <?php
                                     $req_prixVente->execute();
@@ -175,8 +166,20 @@
                                     <?php
                                     }
                                     ?>
+                                    <?php
+                                    //Exécution de la requête prix
+                                    $req_prixVente->execute();
+                                    while ($prixVente = $req_prixVente->fetch()) {
+                                        //Afficher prix
+                                    ?>
+                                        <hr>
+                                        <h4 id=prixVente><?php echo $prixVente['prix_vente']; ?>€</h4>
+                                        <hr>
+                                    <?php
+                                    }
+                                    ?>
 
-                                    <input type="submit" name="add_to_cart" class="btn btn-info" value="Ajouter au panier">
+                                   <input type="submit" name="add_to_cart" class="btn btn-info" value="Ajouter au panier">
                                 </div>
                             </form>
                         </div>

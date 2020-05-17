@@ -119,7 +119,7 @@
 
                         <div class="col-sm-4 col-md-3 ">
                             <form method="POST" action="panier.php?action=add&id=<?php echo $produit['id_prod']; ?>">
-                                <div class="products">
+                                <div class="products shadow p-3 mb-5 bg-white rounded">
                                     <img src="<?php echo $chemImage['chemin_img']; ?>" alt="<?php echo $titreImage['titre_img'] ?>" class="img-responsive">
                                     <h4 class="text-info"><?php echo $produit['nom_prod']; ?></h4>
                                     <?php
