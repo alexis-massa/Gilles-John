@@ -6,7 +6,8 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <link rel="stylesheet" href="connexion.css" />
+        <link rel="stylesheet" href="connexion.css" type="text/css"/>
+        <meta charset="UTF-8">
     </head>
     <body>
         <?php
