@@ -1,67 +1,3 @@
-<?php
-
-session_start();
-$product_ids = array();
-session_destroy();
-
-//Vérifier que le bouton d'ajout au panier à été activé
-if (filter_input(INPUT_POST, 'add_to_cart')) {
-    //Si le panier existe déja
-    if (isset($_SESSION['shopping_cart'])) {
-        //Combien de produit deja dans le panier
-        $count = count($_SESSION['shopping_cart']);
-        //Tableau clé - id produit (se repérer dans les produits)
-        $product_ids = array_column($_SESSION['shopping_cart'], 'id');
-
-        //Si le produit n'est pas dans le panier
-        if (!in_array(filter_input(INPUT_GET, 'id'), $product_ids)) {
-            //On l'ajoute
-            $_SESSION['shopping_cart'][$count] = array(
-                'id' => filter_input(INPUT_GET, 'id'),
-                'name' => filter_input(INPUT_POST, 'name'),
-                'price' => filter_input(INPUT_POST, 'price'),
-                'couleur' => filter_input(INPUT_POST, 'radio_coul'),
-                'taille' => filter_input(INPUT_POST, 'radio_taille'),
-                'quantity' => filter_input(INPUT_POST, 'quantity')
-            );
-        }
-        //Sinon (le produit est deja dans le panier), 
-        else{
-            //On parcourt les clé de produits
-            for ($i=0; $i < count($product_ids); $i++) { 
-                //Quand les clés sont identique (les produits ajouté-enregistré correspondent)
-                if($product_ids[$i] == filter_input(INPUT_GET, 'id')){
-                    //On ajoute la quantité demandée à la quantité déja enregistrée
-                    $_SESSION['shopping_cart'][$i]['quantity'] += filter_input(INPUT_POST, 'quantity');
-                }
-            }
-        }
-    } else {
-        //Si le panier n'existe pas créer un produit avec la clé 0
-        //Créer array avec les valeurs du formulaire, qui commence à la clé et on le rempli avec les valeurs
-        $_SESSION['shopping_cart'][0] = array(
-            'id' => filter_input(INPUT_GET, 'id'),
-            'name' => filter_input(INPUT_POST, 'name'),
-            'price' => filter_input(INPUT_POST, 'price'),
-            'couleur' => filter_input(INPUT_POST, 'radio_coul'),
-            'taille' => filter_input(INPUT_POST, 'radio_taille'),
-            'quantity' => filter_input(INPUT_POST, 'quantity')
-        );
-    }
-}
-pre_r($_SESSION);
-
-function pre_r($array)
-{
-    echo '<pre>';
-    print_r($array);
-    echo '</pre>';
-}
-
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -80,7 +16,33 @@ function pre_r($array)
     <link rel="stylesheet" href="../../css/magasin.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- Prêt à faire une requête en AJAX pour ne pas avoir à revenir sur la page de produits à chaque fois -->
+    <!-- <script>
+        var httpRequest = new XMLHttpRequest();
 
+
+        httpRequest.onreadystatechange = traitementReponse;
+        function traitementReponse() {
+            // instructions de traitement de la réponse
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                // tout va bien, la réponse a été reçue
+                if (httpRequest.status === 200) {
+                    // parfait !
+                    alert('ca marche normalement');
+                } else if (httpRequest.status === 404) {
+                    alert("erreur page not found");
+                    // il y a eu un problème avec la requête
+                }
+            } else {
+                // pas encore prête
+            }
+
+        };
+        function addPanier($value) {
+            httpRequest.open('POST', './panier.php?action=add&id=<?php echo $produit['id_prod']; ?>');
+            httpRequest.send();
+        }
+    </script> -->
 </head>
 
 <body>
@@ -156,7 +118,7 @@ function pre_r($array)
             ?>
 
                         <div class="col-sm-4 col-md-3 ">
-                            <form method="POST" action="gilets.php?action=add&id=<?php echo $produit['id_prod']; ?>">
+                            <form method="POST" action="panier.php?action=add&id=<?php echo $produit['id_prod']; ?>">
                                 <div class="products">
                                     <img src="<?php echo $chemImage['chemin_img']; ?>" alt="<?php echo $titreImage['titre_img'] ?>" class="img-responsive">
                                     <h4 class="text-info"><?php echo $produit['nom_prod']; ?></h4>
