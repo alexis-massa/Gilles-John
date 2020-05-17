@@ -1,3 +1,67 @@
+<?php
+
+session_start();
+$product_ids = array();
+session_destroy();
+
+//Vérifier que le bouton d'ajout au panier à été activé
+if (filter_input(INPUT_POST, 'add_to_cart')) {
+    //Si le panier existe déja
+    if (isset($_SESSION['shopping_cart'])) {
+        //Combien de produit deja dans le panier
+        $count = count($_SESSION['shopping_cart']);
+        //Tableau clé - id produit (se repérer dans les produits)
+        $product_ids = array_column($_SESSION['shopping_cart'], 'id');
+
+        //Si le produit n'est pas dans le panier
+        if (!in_array(filter_input(INPUT_GET, 'id'), $product_ids)) {
+            //On l'ajoute
+            $_SESSION['shopping_cart'][$count] = array(
+                'id' => filter_input(INPUT_GET, 'id'),
+                'name' => filter_input(INPUT_POST, 'name'),
+                'price' => filter_input(INPUT_POST, 'price'),
+                'couleur' => filter_input(INPUT_POST, 'radio_coul'),
+                'taille' => filter_input(INPUT_POST, 'radio_taille'),
+                'quantity' => filter_input(INPUT_POST, 'quantity')
+            );
+        }
+        //Sinon (le produit est deja dans le panier), 
+        else{
+            //On parcourt les clé de produits
+            for ($i=0; $i < count($product_ids); $i++) { 
+                //Quand les clés sont identique (les produits ajouté-enregistré correspondent)
+                if($product_ids[$i] == filter_input(INPUT_GET, 'id')){
+                    //On ajoute la quantité demandée à la quantité déja enregistrée
+                    $_SESSION['shopping_cart'][$i]['quantity'] += filter_input(INPUT_POST, 'quantity');
+                }
+            }
+        }
+    } else {
+        //Si le panier n'existe pas créer un produit avec la clé 0
+        //Créer array avec les valeurs du formulaire, qui commence à la clé et on le rempli avec les valeurs
+        $_SESSION['shopping_cart'][0] = array(
+            'id' => filter_input(INPUT_GET, 'id'),
+            'name' => filter_input(INPUT_POST, 'name'),
+            'price' => filter_input(INPUT_POST, 'price'),
+            'couleur' => filter_input(INPUT_POST, 'radio_coul'),
+            'taille' => filter_input(INPUT_POST, 'radio_taille'),
+            'quantity' => filter_input(INPUT_POST, 'quantity')
+        );
+    }
+}
+pre_r($_SESSION);
+
+function pre_r($array)
+{
+    echo '<pre>';
+    print_r($array);
+    echo '</pre>';
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -56,13 +120,11 @@
             //Valeur choisies
             $idCoul = '';
             $idTaille = '';
-
-
             //Requete prix de vente (stock)
-            $req_prixVente = $db_pdo->prepare('SELECT prix_vente FROM stock WHERE id_prod = ? AND id_coul = ? AND id_taille = ?;');
+            $req_prixVente = $db_pdo->prepare('SELECT prix_vente FROM stock WHERE id_prod = ? AND id_coul = (SELECT id_coul FROM couleur WHERE lib_coul = ?) AND id_taille = (SELECT id_taille FROM taille WHERE lib_taille = ?);');
             $req_prixVente->bindParam(1, $idProd);
-            $req_prixVente->bindParam(2, $idCoul);
-            $req_prixVente->bindParam(3, $idTaille);
+            $req_prixVente->bindParam(2, $libCoul);
+            $req_prixVente->bindParam(3, $libTaille);
 
             // Résultat de la requète dans une variable
             $result = pg_exec($db_connection, $req_produits);
@@ -105,36 +167,53 @@
                                         <label><?php echo $couleur['lib_coul']; ?></label><input type="radio" name="radio_coul" class="radio" value="<?php echo $couleur['lib_coul']; ?>" checked>
 
                                     <?php
+                                        //On simule des valeurs pour la req_prixVente
+                                        $libCoul = $couleur['lib_coul'];
                                     }
                                     //Tant qu'il y a des lignes dans la requete, on affiche option lib_taille
                                     while ($taille = $req_taille->fetch()) {
                                     ?>
                                         <label><?php echo $taille['lib_taille'] ?></label><input type="radio" name="radio_taille" class="radio" value="<?php echo $taille['lib_taille']; ?>" checked>
                                     <?php
+                                        //On simule des valeurs pour la req_prixVente
+                                        $libTaille = $taille['lib_taille'];
                                     }
                                     ?>
-                                    <script>
-                                        checked();
-                                    </script>
+                                    <!-- <script>
+                                    //     checked();
+                                     </script> -->
                                     <?php
                                     //Recupere valeur couleur choisie
-                                    $idCoul = '';
-                                    //Recupere valeur taille choisie                                    
-                                    $idTaille = '';
+                                    //$libCoul = $_POST['couls'];
+                                    //Recupere valeur taille choisie
+                                    //$libTaille = $_POST['tailles'];
+
+                                    // echo $libCoul;
+                                    // echo $libTaille;
+
 
                                     //Exécution de la requête prix
                                     $req_prixVente->execute();
-                                    //Afficher prix
                                     while ($prixVente = $req_prixVente->fetch()) {
+                                        //Afficher prix
                                     ?>
-                                        <h4 id="zonePrix"><?php echo $prixVente['prix_vente']; ?></h4>
+                                        <h4><?php echo $prixVente['prix_vente']; ?>€</h4>
                                     <?php
                                     }
                                     ?>
 
-                                    <input type="text" name="quantity" class="form-control" value="1">
+                                    <label>Quantité :</label><input type="text" name="quantity" class="form-control" value="1">
                                     <input type="hidden" name="name" class="form-control" value="<?php echo $produit['nom_prod']; ?>">
-                                    <input type="hidden" name="price" class="form-control" value="<?php echo $prixVente['prix_vente']; ?>">
+                                    <?php
+                                    $req_prixVente->execute();
+                                    while ($prixVente = $req_prixVente->fetch()) {
+                                        //Récupérer prix
+                                    ?>
+                                        <input type="hidden" name="price" class="form-control" value="<?php echo $prixVente['prix_vente']; ?>">
+                                    <?php
+                                    }
+                                    ?>
+
                                     <input type="submit" name="add_to_cart" class="btn btn-info" value="Ajouter au panier">
                                 </div>
                             </form>

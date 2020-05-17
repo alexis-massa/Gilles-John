@@ -1,4 +1,5 @@
 var grd = function () {
+    //Changement des boutons radio
     $("input[type='radio']").click(function () {
         var previousValue = $(this).attr('previousValue');
         var name = $(this).attr('name');
@@ -11,29 +12,33 @@ var grd = function () {
         }
     });
 };
-grd('radio_coul');
-grd('radio_taille');
 
+//Devrait renvoyer les valeurs des couleurs / tailles choisies mais ne fonctionne pas
 var checked = function () {
+    //Récupérer les valeurs
     $("input[type='radio']").click(function () {
-        var valeurs = [[], []];
+        console.clear();
 
-        
         var radiosCoul = document.getElementsByName('radio_coul');
         var radiosTaille = document.getElementsByName('radio_taille');
+        var couls = [];
+        var tailles = [];
 
-        for (var j = 0; j < radiosCoul.length; j++) {
-            if (radiosCoul[j].checked) {
-                valeurCoul = radiosCoul[j].value;
+        for (var i = 0; i < radiosCoul.length; i++) {
+            if (radiosCoul[i].checked) {
+                couls.push(radiosCoul[i].value);
             }
         }
-        for (var k = 0; k < radiosTaille.length; k++) {
-            if (radiosTaille[k].checked) {
-                valeurTaille = radiosTaille[k].value;
+        for (var i = 0; i < radiosTaille.length; i++) {
+            if (radiosTaille[i].checked) {
+                tailles.push(radiosTaille[i].value);
             }
         }
-        valeurs.push(valeurCoul, valeurTaille);
-        console.log(valeurs);
-        console.log('---------------');
+        console.log(couls);
+        console.log(tailles);
     });
-}
+};
+
+grd('radio_coul');
+grd('radio_taille');
+checked();
