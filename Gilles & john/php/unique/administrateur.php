@@ -200,16 +200,69 @@
                                     $req_modifStockUpdate->execute();
                                     $res_modifStockUpdate = $req_modifStockUpdate->fetch();
                                 }
-
                             ?>
-
                         </form>
                     </div>
                 </section>
 
 
                 <section class="utilisateurs">
-                    Section utilisateurs en TRAVAUX
+                <?php 
+                //Requete utilisateurs
+                $req_Utils = $db_pdo->query("SELECT * FROM utilisateur");
+                $res_Utils = $req_Utils->fetch();
+                ?>
+                    <div class="ajouterUtil">
+                        <form action="" method="post">
+                            <h4>Ajouter un utilisateur</h4>
+
+                            <input type="text" name="ajoutUtiNom" id="ajoutUtiNom" placeholder="Nom utilisateur">
+                            <input type="text" name="ajoutUtiMail" id="ajoutUtiMail" placeholder="Mail utilisateur">
+                            <input type="text" name="ajoutUtiLogin" id="ajoutUtiLogin" placeholder="Login utilisateur">
+                            <input type="password" name="ajoutUtiMDP" id="ajoutUtiMDP" placeholder="MDP utilisateur">
+                            <input type="password" name="ajoutUtiMDPConfim" id="ajoutUtiMDPConfim" placeholder="Confirm MDP">
+                            <input type="text" name="ajoutUtiRole" id="ajoutUtiRole" placeholder="Role utilisateur">
+                            <button type="submit" name="ajoutUtiSubmit" value="Ajouter utilisateur">Ajouter utilisateur</button>
+                            
+                            <?php
+                                if (isset($_POST['ajoutUtiSubmit'])) {
+                                    if ($_POST['ajoutUtiMDP'] == $_POST['ajoutUtiMDPConfim']) {
+                                        //INSERT INTO UTILISATEUR
+                                        $req_insertUti = $db_pdo->prepare("INSERT INTO utilisateur(nom_uti,mail_uti,login_uti,mdp_uti,role_uti,abo_uti)
+                                        VALUES(?,?,?,?,?,?)");
+                                        $req_insertUti->execute(array($_POST['ajoutUtiNom'],$_POST['ajoutUtiMail'],$_POST['ajoutUtiLogin'],$_POST['ajoutUtiMDPConfim'],
+                                        $_POST['ajoutUtiRole'],"FALSE"));
+                                    }
+                                }
+                            ?>
+                        </form>
+                    </div>
+
+                    <div class="modifierUtil">
+                        <form action="" method="post">
+                            <?php 
+                                $req_UtilsID = $db_pdo->query("SELECT max(id_uti) FROM utilisateur");
+                                $res_UtilsID = $req_UtilsID->fetch();
+                            ?>
+                            <h4>Modifier utilisateur</h4>
+                            <select name="selectUtil" id="selectUtil">
+                                <?php
+                                while($res_Utils = $req_Utils->fetch()){ ?>
+                                 <option value="<?php $res_Utils['id_prod']?>">
+                                    <?php echo $res_Utils['id_uti'] . " | " . $res_Utils['nom_uti'] . " | " . $res_Utils['mail_uti'] . " | " .$res_Utils['login_uti'] ?></option>
+                                <?php } ?>
+                            </select>
+                            <input type="number" name="enterProdId" id="enterProdId" placeholder="ID Produit">
+                            <input type="text" name="modifUtilNom" id="modifUtilNom" placeholder="Nom Produit">
+                            <input type="text" name="modifProdType" id="modifProdType" placeholder="Type Produit">
+                            <input type="text" name="modifProdQte" id="modifProdQte" placeholder="Quantité Produit">
+                            <input type="text" name="modifProdPrix" id="modifProdPrix" placeholder="Prix Produit">
+                            <button type="submit" name="ModifProdSubmit" value="Modifier produit">Modifier produit</button>
+                            <?php
+
+                            ?>
+                        </form>
+                    </div>
                 </section>
             </div>                      
         </div> 
