@@ -167,19 +167,41 @@
                             <select name="selectProd" id="selectProd">
                             <?php
                                 while( $res_Produit = $req_Produit->fetch()){ ?>
-                                    <option value="<?php echo $res_Produit['id_prod']?>">
+                                    <option value="<?php $res_Produit['id_prod']?>">
                                     <?php echo $res_Produit['id_prod'] . " | " . $res_Produit['nom_prod'] . " | " .$res_Produit['typ_prod'] ?></option>
                                 <?php } ?>
                             </select>
-                            <input type="text" value="1" name="enterProdId" id="enterProdId" placeholder="Entrez l'Id du prod à modifier">
-                            <?php
-                                $str = pg_escape_string("1");
-                                $result = pg_query($db_pdo, "SELECT * FROM produit WHERE id_prod = '{$str}'");
-                            ?>
-                            <input type="text" name="modifProd" id="modifProd" value="<?php echo $result['nom_prod'] ?>">
-
+                            <input type="number" name="enterProdId" id="enterProdId" placeholder="ID Produit">
+                            <input type="text" name="modifProdNom" id="modifProdNom" placeholder="Nom Produit">
+                            <input type="text" name="modifProdType" id="modifProdType" placeholder="Type Produit">
+                            <input type="text" name="modifProdQte" id="modifProdQte" placeholder="Quantité Produit">
+                            <input type="text" name="modifProdPrix" id="modifProdPrix" placeholder="Prix Produit">
                             <button type="submit" name="ModifProdSubmit" value="Modifier produit">Modifier produit</button>
 
+                            <?php
+                                if (isset($_POST['ModifProdSubmit'])) {
+                                    $idProd = $_POST['enterProdId'];
+
+                                    $nomProd = $_POST['modifProdNom'];
+                                    $typeProd = $_POST['modifProdType'];
+
+                                    $req_modifProdUpdate = $db_pdo->prepare("UPDATE produit SET nom_prod = ?, typ_prod = ? WHERE id_prod = $idProd;");
+                                    $req_modifProdUpdate->bindParam(1, $nomProd);
+                                    $req_modifProdUpdate->bindParam(2, $typeProd);
+                                    $req_modifProdUpdate->execute();
+                                    $res_modifProdUpdate = $req_modifProdUpdate->fetch();
+
+                                    $qteProd = $_POST['modifProdQte'];
+                                    $prixProd = $_POST['modifProdPrix'];
+
+                                    $req_modifStockUpdate = $db_pdo->prepare("UPDATE stock SET qte_stock = ?, prix_vente = ? WHERE id_prod = $idProd;");
+                                    $req_modifStockUpdate->bindParam(1, $qteProd);
+                                    $req_modifStockUpdate->bindParam(2, $prixProd);
+                                    $req_modifStockUpdate->execute();
+                                    $res_modifStockUpdate = $req_modifStockUpdate->fetch();
+                                }
+
+                            ?>
 
                         </form>
                     </div>
