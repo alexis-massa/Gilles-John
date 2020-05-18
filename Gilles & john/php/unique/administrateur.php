@@ -252,14 +252,30 @@
                                     <?php echo $res_Utils['id_uti'] . " | " . $res_Utils['nom_uti'] . " | " . $res_Utils['mail_uti'] . " | " .$res_Utils['login_uti'] ?></option>
                                 <?php } ?>
                             </select>
-                            <input type="number" name="enterProdId" id="enterProdId" placeholder="ID Produit">
-                            <input type="text" name="modifUtilNom" id="modifUtilNom" placeholder="Nom Produit">
-                            <input type="text" name="modifProdType" id="modifProdType" placeholder="Type Produit">
-                            <input type="text" name="modifProdQte" id="modifProdQte" placeholder="Quantité Produit">
-                            <input type="text" name="modifProdPrix" id="modifProdPrix" placeholder="Prix Produit">
-                            <button type="submit" name="ModifProdSubmit" value="Modifier produit">Modifier produit</button>
+                            <input type="number" name="enterUtiId" id="enterProdId" placeholder="ID Utilisateur">
+                            <input type="text" name="modifUtilNom" id="modifUtilNom" placeholder="Nom Utilisateur">
+                            <input type="text" name="modifMailUti" id="modifMailUti" placeholder="Mail Utilisateur">
+                            <input type="text" name="modifLoginUti" id="modifLoginUti" placeholder="Login Utilisateur">
+                            <input type="text" name="modifRoleUti" id="modifRoleUti" placeholder="Role Utilisateur">
+                            <button type="submit" name="updateUtiSubmit" value="Modifier utilisateur">Modifier utilisateur</button>
                             <?php
+                                if (isset($_POST['updateUtiSubmit'])) {
+                                    $idUti = $_POST['enterUtiId'];
 
+                                    $nomUti = $_POST['modifUtilNom'];
+                                    $mailUti = $_POST['modifMailUti'];
+                                    $loginUti = $_POST['modifLoginUti'];
+                                    $roleUti = $_POST['modifRoleUti'];
+
+                                    $req_modifProdUpdate = $db_pdo->prepare("UPDATE utilisateur SET nom_uti = ?, mail_uti = ?, login_uti = ?, role_uti = ? 
+                                    WHERE id_uti = $idUti;");
+                                    $req_modifProdUpdate->bindParam(1, $nomUti);
+                                    $req_modifProdUpdate->bindParam(2, $mailUti);
+                                    $req_modifProdUpdate->bindParam(3, $loginUti);
+                                    $req_modifProdUpdate->bindParam(4, $roleUti);
+                                    $req_modifProdUpdate->execute();
+                                    $res_modifProdUpdate = $req_modifProdUpdate->fetch();
+                                }
                             ?>
                         </form>
                     </div>
