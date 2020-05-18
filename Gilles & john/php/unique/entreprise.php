@@ -16,6 +16,8 @@
     <script src="https://kit.fontawesome.com/63ffd472bc.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/entreprise.css">
+    <link rel="stylesheet" href="../../css/main.css">
 </head>
 
 <body>
@@ -25,7 +27,7 @@
     <div id="titre1">
             <h4>Son histoire</h4>
         </div>  
-        <br>
+        
 
         <p>Créée en 1789, pendant la révolution française, Gilles & John était une entreprise de couture. Avec les besoins évident de protection et le marché en développement de l’équipement de sécurité, Gilles & John a su trouver sa place et faire développer son activité.</p>
         
@@ -33,7 +35,7 @@
         <br>
 
         <h4>Sa taille</h4>
-        <br>
+        
         <p>Gilles & John compte aujourd’hui une centaine de salariés, allant de la couturière au chef de services des livraisons.</p>
         
         <p>Son chiffre d’affaire sur l’année 2019 est de 500 millions d’euros.</p>
@@ -43,6 +45,7 @@
 
         <p>Vente d’équipements de protections, retro réfléchissants (gilets de sécurité, casques de sécurité, bandanas, bracelets, chaussures, ainsi que des modèles old school comme des cocardes).</p>
 
+        <img class="align-middle" id="img_bureaux" src="../../img/bureaux.jpg" alt="">
     </main>
 
     <?php include '../commun/footer.php' ?>
