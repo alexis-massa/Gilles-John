@@ -70,18 +70,18 @@ hr{
 
 /* CORPS */
 
-.ajoutProduits input{
+.ajoutProduits input,.modifProduits input,.modifProduits button,.ajouterUtil input,.modifierUtil input{
     display: block;
     margin: auto;
     margin-bottom: 12px;
 }
 
-.ajoutProduits select{
+.ajoutProduits select,.modifProduits select,.ajouterUtil select,.modifierUtil select{
     margin: auto;
     margin-bottom: 12px;
 }
 
-.ajoutProduits,.modifProduits{
+.ajoutProduits,.modifProduits,.ajouterUtil,.modifierUtil{
     margin-right: 60px;
     width: 300px;
     padding: 20px;
@@ -93,4 +93,20 @@ hr{
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+}
+
+.ajoutProduits,.modifProduits,.ajouterUtil,.modifierUtil{
+    display: inline-block;
+}
+
+.Produits,.utilisateurs{
+    display: none;
+}
+
+.alert-produits{
+    display: none!important;
+}
+
+.modifierUtil{
+    width: auto;
 }

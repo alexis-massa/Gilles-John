@@ -42,10 +42,10 @@
     text-align: center;
 }
 
-.product-pic{
+.img-responsive{
     background-image: url(/img/black.jpg);
-    width: 300px;
-    height: 400px;
+    width: 300px!important;
+    height: 340px!important;
     background-size: cover;
     background-position: center;
     transition: ease-in-out .1s;
@@ -54,6 +54,7 @@
     -ms-transition: ease-in-out .1s;
     -o-transition: ease-in-out .1s;
 }
+
 
 .noir{
     background-color: #000000;
@@ -78,3 +79,53 @@
 .vert{
     background-color: #3aa86c;
 }
+
+input[type=radio]{
+    display: inline;
+    margin-right: 10px!important;
+}
+
+.labelSpacing{
+    margin-right: 5px!important;
+    text-transform: uppercase;
+}
+
+h4.text-info{
+    text-transform: uppercase;
+    color: #003144!important;
+    font-weight: 600;
+}
+
+.products h4{
+    text-align: center;
+}
+
+.products input[type=submit]{
+    margin-left: 22%;
+    background: #A91000;
+    border: none;
+    width: 190px;
+    height: 48px;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+
+
+#prixVente{
+    color: rgb(167, 0, 0);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.radioContainer{
+    padding: 5px;
+    background-color: rgba(221, 221, 221, 0.39);
+    margin-bottom: 5px;
+}
+

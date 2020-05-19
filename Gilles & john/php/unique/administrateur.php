@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/administrateur.css">
+    <script src="../../scripts/administrateur.js"></script>
 </head>
 
 <body>
@@ -37,9 +38,6 @@
         $req_taille = $db_pdo->query("SELECT lib_taille FROM taille");
         $res_taille = $req_taille->fetch();
 
-        //Requete Image
-        $req_image = $db_pdo->query("SELECT max(id_img) FROM image");
-        $res_lastIdImg = $req_image->fetch();
     ?>
     <main>
         <aside class="sidebar">
@@ -77,13 +75,15 @@
             </div>
 
             <div class="corps">
+                <div class="alert alert-success alert-produits" role="alert">
+                    A simple success alert—check it out!
+                 </div> 
                 <section class="Produits">
                     <div class="ajoutProduits">
                         <form action="" method="POST">
                             <h4>Ajout de produit</h4>
                             <input type="text" name="nomProd" id="nomProd" placeholder="nom produit" required>
-                            <input type="text" name="IdProd" id="IdProd" placeholder="ID produit" value="8" required>
-                            <span><?php echo $res_lastIdImg ?></span>
+                            <!-- <input type="text" name="IdProd" id="IdProd" placeholder="ID produit" value="" required disabled> -->
                             <span>Type produit: </span>
                             <select name="typeProd" id="typeProd">
                                 <option value="gilet">gilet</option>
@@ -108,56 +108,181 @@
                                     <?php echo $res_taille['lib_taille'] ?></option>
                                 <?php } ?>
                             </select>
-                            <input type="text" name="qte_StockProd" id="qte_StockProd"placeholder="Quantitée disponible" required>
-                            <input type="text" name="prix_VenteProd" id="prix_VenteProd" placeholder="Prix du produit"required>
-                            <input type="submit" value="Valider produit">
+                            <input type="text" name="qte_StockProd" id="qte_StockProd"
+                                placeholder="Quantitée disponible" required>
+                            <input type="text" name="prix_VenteProd" id="prix_VenteProd" placeholder="Prix du produit"
+                                required>
+                            <input type="submit" name="submit" value="Valider produit">
+                            <?php
+                            if (isset($_POST['submit'])) {
+
+                                //Requete selected couleur
+                                $SelectedCoul = $_POST['couleurProd'];
+                                $req_selectCouleur = $db_pdo->query("SELECT id_coul FROM couleur where lib_coul = '$SelectedCoul'");
+                                $res_selectCouleur = $req_selectCouleur->fetch();
+
+                                //Requete selected taille
+                                $SelectedTaille = $_POST['tailleProd'];
+                                $req_selectTaille = $db_pdo->query("SELECT id_taille FROM taille where lib_taille = '$SelectedTaille'");
+                                $res_selectTaille = $req_selectTaille->fetch();
+
+                                //INSERT INTO IMAGE
+                                $req_insertImg = $db_pdo->prepare("INSERT INTO image(chemin_img,titre_img)
+                                VALUES(?,?)");
+                                $req_insertImg->execute(array($_POST['cheminImg'],$_POST['titreImg']));
+
+                                //Requete Image
+                                $req_image = $db_pdo->query("SELECT max(id_img) FROM image");
+                                $res_lastIdImg = $req_image->fetch();
+
+                                //INSERT INTO PRODUIT
+                                $req_insertProd = $db_pdo->prepare("INSERT INTO produit(nom_prod,typ_prod,id_img)
+                                VALUES(?,?,?)");
+                                $req_insertProd->execute(array($_POST['nomProd'],$_POST['typeProd'],$res_lastIdImg[0]));
+
+                                //Requete ID PROD
+                                $req_prod = $db_pdo->query("SELECT max(id_prod) FROM produit");
+                                $res_lastIdProd = $req_prod->fetch();
+
+                                //INSERT INTO STOCK
+                                $req_insertStock = $db_pdo->prepare("INSERT INTO stock(id_prod,id_coul,id_taille,qte_stock,prix_vente)
+                                VALUES(?,?,?,?,?)");
+                                $req_insertStock->execute(array($res_lastIdProd[0],$res_selectCouleur['id_coul'],$res_selectTaille['id_taille'],$_POST['qte_StockProd'],$_POST['prix_VenteProd']));
+
+                            }
+                            ?>
                         </form>
                     </div>
-                    <?php
-                    if (isset($_POST['nomProd']) AND isset($_POST['qte_StockProd']) AND isset($_POST['prix_VenteProd']) AND
-                        isset($_POST['cheminImg']) AND isset($_POST['titreImg'])) {
-
-                        //Requete selected couleur
-                        $SelectedCoul = $_POST['couleurProd'];
-                        $req_selectCouleur = $db_pdo->query("SELECT id_coul FROM couleur where lib_coul = '$SelectedCoul'");
-                        $res_selectCouleur = $req_selectCouleur->fetch();
-                        
-                        //Requete selected taille
-                        $SelectedTaille = $_POST['tailleProd'];
-                        $req_selectTaille = $db_pdo->query("SELECT id_taille FROM taille where lib_taille = '$SelectedTaille'");
-                        $res_selectTaille = $req_selectTaille->fetch();
-
-                        //INSERT INTO IMAGE
-                        $req_insertImg = $db_pdo->prepare("INSERT INTO image(chemin_img,titre_img)
-                        VALUES(?,?)");
-                        $req_insertImg->execute(array($_POST['cheminImg'],$_POST['titreImg']));
-
-                        //INSERT INTO PRODUIT
-                        $req_insertProd = $db_pdo->prepare("INSERT INTO produit(nom_prod,typ_prod,id_img)
-                        VALUES(?,?,?)");
-                        $req_insertProd->execute(array($_POST['nomProd'],$_POST['typeProd'],$_POST['IdProd']));
-
-                        //INSERT INTO STOCK
-                        $req_insertStock = $db_pdo->prepare("INSERT INTO stock(id_prod,id_coul,id_taille,qte_stock,prix_vente)
-                        VALUES(?,?,?,?,?)");
-                        $req_insertStock->execute(array($_POST['nomProd'],$_POST['typeProd'],$_POST['IdProd'],$res_selectCouleur['id_coul'],$res_selectTaille['id_taille'],$_POST['qte_StockProd'],$_POST['prix_VenteProd']));
-                    }
-                    ?>
 
                     <div class="modifProduits">
-                        <h4>Modification de produit</h4>
+                        <?php 
+                        //Requete produit
+                        $req_Produit = $db_pdo->query("SELECT * FROM produit");
+                        $res_Produit = $req_Produit->fetch();
+                        $selectedProd = '';
+                        ?>
+                        <form action="" method="post">                           
+                            <h4>Modification de produit</h4>
+
+                            <select name="selectProd" id="selectProd">
+                            <?php
+                                while( $res_Produit = $req_Produit->fetch()){ ?>
+                                    <option value="<?php $res_Produit['id_prod']?>">
+                                    <?php echo $res_Produit['id_prod'] . " | " . $res_Produit['nom_prod'] . " | " .$res_Produit['typ_prod'] ?></option>
+                                <?php } ?>
+                            </select>
+                            <input type="number" name="enterProdId" id="enterProdId" placeholder="ID Produit">
+                            <input type="text" name="modifProdNom" id="modifProdNom" placeholder="Nom Produit">
+                            <input type="text" name="modifProdType" id="modifProdType" placeholder="Type Produit">
+                            <input type="text" name="modifProdQte" id="modifProdQte" placeholder="Quantité Produit">
+                            <input type="text" name="modifProdPrix" id="modifProdPrix" placeholder="Prix Produit">
+                            <button type="submit" name="ModifProdSubmit" value="Modifier produit">Modifier produit</button>
+
+                            <?php
+                                if (isset($_POST['ModifProdSubmit'])) {
+                                    $idProd = $_POST['enterProdId'];
+
+                                    $nomProd = $_POST['modifProdNom'];
+                                    $typeProd = $_POST['modifProdType'];
+
+                                    $req_modifProdUpdate = $db_pdo->prepare("UPDATE produit SET nom_prod = ?, typ_prod = ? WHERE id_prod = $idProd;");
+                                    $req_modifProdUpdate->bindParam(1, $nomProd);
+                                    $req_modifProdUpdate->bindParam(2, $typeProd);
+                                    $req_modifProdUpdate->execute();
+                                    $res_modifProdUpdate = $req_modifProdUpdate->fetch();
+
+                                    $qteProd = $_POST['modifProdQte'];
+                                    $prixProd = $_POST['modifProdPrix'];
+
+                                    $req_modifStockUpdate = $db_pdo->prepare("UPDATE stock SET qte_stock = ?, prix_vente = ? WHERE id_prod = $idProd;");
+                                    $req_modifStockUpdate->bindParam(1, $qteProd);
+                                    $req_modifStockUpdate->bindParam(2, $prixProd);
+                                    $req_modifStockUpdate->execute();
+                                    $res_modifStockUpdate = $req_modifStockUpdate->fetch();
+                                }
+                            ?>
+                        </form>
                     </div>
                 </section>
 
 
                 <section class="utilisateurs">
-                    Section utilisateurs en TRAVAUX
-                </section>
-            </div>
+                <?php 
+                //Requete utilisateurs
+                $req_Utils = $db_pdo->query("SELECT * FROM utilisateur");
+                $res_Utils = $req_Utils->fetch();
+                ?>
+                    <div class="ajouterUtil">
+                        <form action="" method="post">
+                            <h4>Ajouter un utilisateur</h4>
 
-        </div>
+                            <input type="text" name="ajoutUtiNom" id="ajoutUtiNom" placeholder="Nom utilisateur">
+                            <input type="text" name="ajoutUtiMail" id="ajoutUtiMail" placeholder="Mail utilisateur">
+                            <input type="text" name="ajoutUtiLogin" id="ajoutUtiLogin" placeholder="Login utilisateur">
+                            <input type="password" name="ajoutUtiMDP" id="ajoutUtiMDP" placeholder="MDP utilisateur">
+                            <input type="password" name="ajoutUtiMDPConfim" id="ajoutUtiMDPConfim" placeholder="Confirm MDP">
+                            <input type="text" name="ajoutUtiRole" id="ajoutUtiRole" placeholder="Role utilisateur">
+                            <button type="submit" name="ajoutUtiSubmit" value="Ajouter utilisateur">Ajouter utilisateur</button>
+                            
+                            <?php
+                                if (isset($_POST['ajoutUtiSubmit'])) {
+                                    if ($_POST['ajoutUtiMDP'] == $_POST['ajoutUtiMDPConfim']) {
+                                        //INSERT INTO UTILISATEUR
+                                        $req_insertUti = $db_pdo->prepare("INSERT INTO utilisateur(nom_uti,mail_uti,login_uti,mdp_uti,role_uti,abo_uti)
+                                        VALUES(?,?,?,?,?,?)");
+                                        $req_insertUti->execute(array($_POST['ajoutUtiNom'],$_POST['ajoutUtiMail'],$_POST['ajoutUtiLogin'],$_POST['ajoutUtiMDPConfim'],
+                                        $_POST['ajoutUtiRole'],"FALSE"));
+                                    }
+                                }
+                            ?>
+                        </form>
+                    </div>
+
+                    <div class="modifierUtil">
+                        <form action="" method="post">
+                            <?php 
+                                $req_UtilsID = $db_pdo->query("SELECT max(id_uti) FROM utilisateur");
+                                $res_UtilsID = $req_UtilsID->fetch();
+                            ?>
+                            <h4>Modifier utilisateur</h4>
+                            <select name="selectUtil" id="selectUtil">
+                                <?php
+                                while($res_Utils = $req_Utils->fetch()){ ?>
+                                 <option value="<?php $res_Utils['id_prod']?>">
+                                    <?php echo $res_Utils['id_uti'] . " | " . $res_Utils['nom_uti'] . " | " . $res_Utils['mail_uti'] . " | " .$res_Utils['login_uti'] ?></option>
+                                <?php } ?>
+                            </select>
+                            <input type="number" name="enterUtiId" id="enterProdId" placeholder="ID Utilisateur">
+                            <input type="text" name="modifUtilNom" id="modifUtilNom" placeholder="Nom Utilisateur">
+                            <input type="text" name="modifMailUti" id="modifMailUti" placeholder="Mail Utilisateur">
+                            <input type="text" name="modifLoginUti" id="modifLoginUti" placeholder="Login Utilisateur">
+                            <input type="text" name="modifRoleUti" id="modifRoleUti" placeholder="Role Utilisateur">
+                            <button type="submit" name="updateUtiSubmit" value="Modifier utilisateur">Modifier utilisateur</button>
+                            <?php
+                                if (isset($_POST['updateUtiSubmit'])) {
+                                    $idUti = $_POST['enterUtiId'];
+
+                                    $nomUti = $_POST['modifUtilNom'];
+                                    $mailUti = $_POST['modifMailUti'];
+                                    $loginUti = $_POST['modifLoginUti'];
+                                    $roleUti = $_POST['modifRoleUti'];
+
+                                    $req_modifProdUpdate = $db_pdo->prepare("UPDATE utilisateur SET nom_uti = ?, mail_uti = ?, login_uti = ?, role_uti = ? 
+                                    WHERE id_uti = $idUti;");
+                                    $req_modifProdUpdate->bindParam(1, $nomUti);
+                                    $req_modifProdUpdate->bindParam(2, $mailUti);
+                                    $req_modifProdUpdate->bindParam(3, $loginUti);
+                                    $req_modifProdUpdate->bindParam(4, $roleUti);
+                                    $req_modifProdUpdate->execute();
+                                    $res_modifProdUpdate = $req_modifProdUpdate->fetch();
+                                }
+                            ?>
+                        </form>
+                    </div>
+                </section>
+            </div>                      
+        </div> 
     </main>
-    <script src="../../js/administrateur.js"></script>
 </body>
 
 </html>
