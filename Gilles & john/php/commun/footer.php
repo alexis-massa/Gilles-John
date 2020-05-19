@@ -12,9 +12,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <p>Lorem ipsum dolor sit amet,
-                            consectetur adipisicing elit, sed
-                            do eiusmod tempor incididunt ut. </p>
+                        <p>Depuis plus de 20 ans notre entreprise fournit les meilleurs gilets de signalisation au monde, de nombreuses entreprises reconnaissent notre talent. 
+                        Nos récentes collaborations avec Louis Vuitton, Hermes, Puma parlent d'elles-mêmes. </p>
                     </td>
                     <td rowspan="2" class="white">
                         <a href="../unique/contact.php">Contactez-nous</a>
@@ -26,7 +25,7 @@
                     <td class="white">
                         <h4>CONTACT</h4>
                         <a id="footer-tel" href="tel:+33456781293">+33456781293</a>
-                        <a id="footer-mail" href="mailto:email@email.com">email@email.com</a>
+                        <a id="footer-mail" href="mailto:email@email.com">PPEGroupe5@gmail.com</a>
                     </td>
                 </tr>
             </tbody>
