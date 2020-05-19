@@ -12,9 +12,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <p>Lorem ipsum dolor sit amet,
-                            consectetur adipisicing elit, sed
-                            do eiusmod tempor incididunt ut. </p>
+                        <p>Depuis plus de 20 ans notre entreprise fournit les meilleurs gilets de signalisation au monde, de nombreuses entreprises reconnaissent notre talent. 
+                        Nos récentes collaborations avec Louis Vuitton, Hermes, Puma parlent d'elles-mêmes. </p>
                     </td>
                     <td rowspan="2" class="white">
                         <a href="../unique/contact.php">Contactez-nous</a>
