@@ -25,7 +25,7 @@
                     <td class="white">
                         <h4>CONTACT</h4>
                         <a id="footer-tel" href="tel:+33456781293">+33456781293</a>
-                        <a id="footer-mail" href="mailto:email@email.com">email@email.com</a>
+                        <a id="footer-mail" href="mailto:email@email.com">PPEGroupe5@gmail.com</a>
                     </td>
                 </tr>
             </tbody>
