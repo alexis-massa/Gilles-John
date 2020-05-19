@@ -12,9 +12,9 @@
     <script src="https://kit.fontawesome.com/63ffd472bc.js" crossorigin="anonymous"></script>
     <script src="../../scripts/magasin.js"></script>
     <link rel="stylesheet" href="../../css/header.css">
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/footer.css">    
+    <link rel="stylesheet" href="../../css/main.css">
     <link rel="stylesheet" href="../../css/magasin.css">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <!-- Prêt à faire une requête en AJAX pour ne pas avoir à revenir sur la page de produits à chaque fois -->
     <!-- <script>

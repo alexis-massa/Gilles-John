@@ -10,7 +10,7 @@ main{
     width: 90%;
     text-align: left;
 }
-p{
+.content{
     overflow: auto;
     text-align: justify;
 }
