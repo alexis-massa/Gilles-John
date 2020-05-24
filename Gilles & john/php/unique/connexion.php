@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <link rel="stylesheet" href="connexion.css" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="/connexion.css"/>
         <meta charset="UTF-8">
     </head>
     <body>
