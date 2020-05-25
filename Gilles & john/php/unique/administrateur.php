@@ -95,7 +95,8 @@
                             <span>Couleur produit: </span>
                             <select name="couleurProd" id="couleurProd">
                                 <?php
-                            while( $res_couleur = $req_couleur->fetch()){ ?>
+                                /* Permet de récuperer toutes les couleurs présents dans la BDD de la table couleur. */
+                                while( $res_couleur = $req_couleur->fetch()){ ?>
                                 <option value="<?php echo $res_couleur['lib_coul'] ?>">
                                     <?php echo $res_couleur['lib_coul'] ?></option>
                                 <?php } ?>
@@ -103,7 +104,8 @@
                             <span>Taille produit</span>
                             <select name="tailleProd" id="tailleProd">
                                 <?php
-                            while( $res_taille = $req_taille->fetch()){ ?>
+                                /* Permet de récupurer toutes les tailles dans la BDD, dans la table taille*/
+                                while( $res_taille = $req_taille->fetch()){ ?>
                                 <option value="<?php echo $res_taille['lib_taille'] ?>">
                                     <?php echo $res_taille['lib_taille'] ?></option>
                                 <?php } ?>
@@ -166,6 +168,8 @@
 
                             <select name="selectProd" id="selectProd">
                             <?php
+                                /* on récupère toutes les colones de la tables produits et on affiche seulement 
+                                ID_produit | nom_produit | type_produit */
                                 while( $res_Produit = $req_Produit->fetch()){ ?>
                                     <option value="<?php $res_Produit['id_prod']?>">
                                     <?php echo $res_Produit['id_prod'] . " | " . $res_Produit['nom_prod'] . " | " .$res_Produit['typ_prod'] ?></option>
@@ -179,12 +183,13 @@
                             <button type="submit" name="ModifProdSubmit" value="Modifier produit">Modifier produit</button>
 
                             <?php
+                                /* Quand le button modifier est cliquer on execute ceci */
                                 if (isset($_POST['ModifProdSubmit'])) {
                                     $idProd = $_POST['enterProdId'];
 
                                     $nomProd = $_POST['modifProdNom'];
                                     $typeProd = $_POST['modifProdType'];
-
+                                    /* effectue une requete UPDATE avec 2 parametre variable en fonction de l'id_produit */
                                     $req_modifProdUpdate = $db_pdo->prepare("UPDATE produit SET nom_prod = ?, typ_prod = ? WHERE id_prod = $idProd;");
                                     $req_modifProdUpdate->bindParam(1, $nomProd);
                                     $req_modifProdUpdate->bindParam(2, $typeProd);
@@ -193,7 +198,7 @@
 
                                     $qteProd = $_POST['modifProdQte'];
                                     $prixProd = $_POST['modifProdPrix'];
-
+                                    /* effectue une requete UPDATE avec 2 parametre variable en fonction de l'id_produit */
                                     $req_modifStockUpdate = $db_pdo->prepare("UPDATE stock SET qte_stock = ?, prix_vente = ? WHERE id_prod = $idProd;");
                                     $req_modifStockUpdate->bindParam(1, $qteProd);
                                     $req_modifStockUpdate->bindParam(2, $prixProd);
@@ -225,7 +230,9 @@
                             <button type="submit" name="ajoutUtiSubmit" value="Ajouter utilisateur">Ajouter utilisateur</button>
                             
                             <?php
+                            /* Quand le button ajouter utilisateur est cliquer on execute ceci */
                                 if (isset($_POST['ajoutUtiSubmit'])) {
+                                    /* on execute la requete que ci les dexu mot de passe entrées sont identique */
                                     if ($_POST['ajoutUtiMDP'] == $_POST['ajoutUtiMDPConfim']) {
                                         //INSERT INTO UTILISATEUR
                                         $req_insertUti = $db_pdo->prepare("INSERT INTO utilisateur(nom_uti,mail_uti,login_uti,mdp_uti,role_uti,abo_uti)
@@ -247,6 +254,7 @@
                             <h4>Modifier utilisateur</h4>
                             <select name="selectUtil" id="selectUtil">
                                 <?php
+                                /* Quand le button modifier est cliquer on execute ceci */
                                 while($res_Utils = $req_Utils->fetch()){ ?>
                                  <option value="<?php $res_Utils['id_prod']?>">
                                     <?php echo $res_Utils['id_uti'] . " | " . $res_Utils['nom_uti'] . " | " . $res_Utils['mail_uti'] . " | " .$res_Utils['login_uti'] ?></option>

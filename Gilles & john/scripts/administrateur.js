@@ -1,6 +1,13 @@
+/* 
+Ce script permet l'affichage des différents panels présent sur la page administrateur : 
+- Paramètrage des produits
+- Paramètrage des utilisateurs 
+*/
 $(document).ready(function () {
+    /* Affichage du panel paramètrage des produits 
+    quand le span button-produit est cliqué */ 
     $("#button-produits").click(function () {
-        if ($(".Produits").not(":visible"))
+        if ($(".Produits").not(":visible")) //s'avoir si le panel est deja afficher
         {
             $(".utilisateurs").hide();
             $(".Produits").show();
@@ -10,7 +17,9 @@ $(document).ready(function () {
     });
 
     $("#button-utilisateurs").click(function () {
-        if ($(".utilisateurs").not(":visible")) 
+        /* Affichage du panel paramètrage des utilisateurs 
+        quand le span button-utilisateur est cliqué */ 
+        if ($(".utilisateurs").not(":visible")) //s'avoir si le panel est deja afficher
         {
             $(".Produits").hide();
             $(".utilisateurs").show();
