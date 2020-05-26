@@ -39,7 +39,7 @@
 
         };
         function addPanier($value) {
-            httpRequest.open('POST', './panier.php?action=add&id=<?php echo $produit['id_prod']; ?>');
+            httpRequest.open('POST', './panier.php?action=add&id=<?php //echo $produit['id_prod']; ?>');
             httpRequest.send();
         }
     </script> -->
@@ -52,9 +52,9 @@
         <div class="container">
             <?php
             // Connections à la BDD (pas toucher)
-            $db_connection = pg_connect("host=localhost dbname=PPE_Groupe5 user=postgres password=postgre");
+            $db_connection = pg_connect("host=localhost dbname=PPEGroupe5 user=postgres password=33ppeGroupe5&");
             //Connection par PDO pour les requêtes préparées
-            $db_pdo = new PDO("pgsql:host=localhost; dbname=PPE_Groupe5", "postgres", "postgre");
+            $db_pdo = new PDO("pgsql:host=localhost; dbname=PPEGroupe5", "postgres", "33ppeGroupe5&");
 
             //Requete produit
             $req_produits = "SELECT * FROM produit WHERE typ_prod = 'accessoire' ORDER BY produit.id_prod ASC;";

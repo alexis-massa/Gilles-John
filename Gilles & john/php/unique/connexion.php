@@ -46,9 +46,9 @@ and open the template in the editor.
         <?php } ?>
         <?php
         define('DB_SERVER', 'localhost');
-        define('DB_USERNAME', 'root');
-        define('DB_PASSWORD', '');
-        define('DB_NAME', 'registration');
+        define('DB_USERNAME', 'postgres');
+        define('DB_PASSWORD', '33ppeGroupe5&');
+        define('DB_NAME', 'PPEGroupe5');
 
         $db_connection = pg_connect("host=localhost dbname=PPE_Groupe5 user=postgres password=postgre");
         
