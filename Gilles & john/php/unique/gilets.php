@@ -194,7 +194,6 @@
 
     <?php include '../commun/footer.php' ?>
 
-    <script src="../../scripts/header.js"></script>
 </body>
 
 </html>
