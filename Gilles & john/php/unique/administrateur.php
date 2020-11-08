@@ -26,9 +26,9 @@
 <body>
     <?php 
         // Connections à la BDD (pas toucher)
-        $db_connection = pg_connect("host=localhost dbname=PPEGroupe5 user=postgres password=33ppeGroupe5&");
+        $db_connection = pg_connect("host=localhost dbname=PPE_Groupe5 user=postgres password=postgres");
         //Connection par PDO pour les requêtes préparées
-        $db_pdo = new PDO("pgsql:host=localhost; dbname=PPEGroupe5", "postgres", "33ppeGroupe5&");
+        $db_pdo = new PDO("pgsql:host=localhost; dbname=PPE_Groupe5", "postgres", "postgres");
 
         //Requete couleur
         $req_couleur = $db_pdo->query("SELECT lib_coul FROM couleur");
